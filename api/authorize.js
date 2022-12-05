@@ -24,9 +24,9 @@ export default async function handler(req, res) {
     }
   })).json();
 
-  if (tokens.error) {
-    res.json(tokens.error)
-  } else {
+  // if (tokens.error) {
+  //   res.json(tokens.error)
+  // } else {
     res.redirect(301, `${redirect_uri}?access_token=${tokens.access_token}`)
-  }
+  // }
 }
