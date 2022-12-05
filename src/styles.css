@@ -1,1 +1,43 @@
-/* You can add global styles to this file, and also import other style files */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: var(--primary-text-color);
+}
+
+:root {
+  /* colors */
+  --bg-color: #212121;
+  --primary-text-color: #fff;
+  --secondary-text-color: #b3b3b3;
+
+  /* constants */
+  --bg-color-dark: #212121;
+  --bg-color-light: #fff;
+}
+
+body {
+  background: var(--bg-color);
+  font-family: montserrat, 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  position: relative;
+}
+
+ul,
+ol,
+dd {
+  list-style-type: none;
+}
+
+button {
+  background-color: transparent;
+  color: inherit;
+  border-width: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* input[type=checkbox] {
+  accent-color: var(--spotify-green);
+} */

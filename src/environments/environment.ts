@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  client_id: '1121cda4cc704879b0e77495f6a03447',
+  apiUrl: 'http://localhost:3000/api/authorize/',
 };
 
 /*

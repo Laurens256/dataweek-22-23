@@ -1,0 +1,275 @@
+main {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+}
+
+main header {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: .3em;
+  align-items: center;
+  text-align: center;
+  margin: 2em 0;
+
+  /* zelfde width als ul eronder */
+  width: 57.5em;
+  max-width: calc(90vw - 1.6em);
+}
+
+main header h1 {
+  font-size: 2.5em;
+}
+
+main header p {
+  font-size: 1.2em;
+}
+
+main header > div:last-of-type {
+  position: absolute;
+  right: 0;
+  height: 70%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: fit-content;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+}
+
+main header div button {
+  width: 50.75px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main header div button svg {
+  width: 70%;
+  /* height: 100%; */
+}
+
+main header div button svg path {
+  fill: var(--spotify-green);
+}
+
+main header div img {
+  border-radius: 50%;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  main header {
+    margin-top: 3.5em;
+  }
+
+  main header > div:last-of-type {
+    height: 3em;
+    top: -2.5em;
+    transform: none;
+  }
+}
+
+main header div aside.prefpanel.open {
+  pointer-events: all;
+  opacity: 1;
+}
+
+main header div aside.prefpanel {
+  pointer-events: none;
+  opacity: 0;
+  transition: all .3s ease-in-out;
+  position: absolute;
+  top: 3em;
+  right: 4%;
+  height: fit-content;
+  width: 10em;
+  background: var(--bg-color);
+  border-radius: 8px;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.2);
+  padding: 1em;
+}
+
+main header div aside.prefpanel h2 {
+  font-size: 1.2em;
+  margin-bottom: .6em;
+}
+
+
+main header div aside.prefpanel div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+}
+
+main header div aside.prefpanel div label {
+  display: flex;
+  flex-direction: row-reverse;
+  place-self: start;
+  gap: .5em;
+}
+
+
+
+main ul {
+  display: grid;
+  gap: 12px 24px;
+  grid-template-columns: repeat(auto-fit, minmax(28em, 1fr));
+  /* grid-template-columns: repeat(auto-fit, minmax(28em, 1fr)); */
+  /* 56.5 = 2 columns van 28 met .5 gap  */
+  width: 57.5em;
+  /* calc 90vw - padding .8em beide kanten */
+  max-width: calc(90vw - 1.6em);
+  justify-content: center;
+}
+
+main ul li {
+  width: 28em;
+  /* calc 90vw - padding .8em beide kanten */
+  max-width: calc(90vw - 1.6em);
+  justify-self: center;
+}
+
+main ul li button {
+  display: flex;
+  /* background: linear-gradient(#323232, #2f2f2f); */
+  background: var(--playlist-bg);
+  width: 100%;
+  height: 6em;
+  gap: 1.3em;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 4px;
+  transition: all .25s ease;
+}
+
+main ul li button:hover,
+main ul li button:focus-visible {
+  background: var(--playlist-bg-hover);
+}
+
+main ul li button:focus-visible {
+  outline: var(--spotify-green) 3px solid;
+}
+
+main ul li button img {
+  height: 100%;
+  object-fit: cover;
+  width: 80px;
+}
+
+main ul li button div {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+main ul li button div h2 {
+  overflow: hidden;
+  text-overflow: '..';
+  white-space: nowrap;
+  text-align: start;
+  color: var(--primary-text-color);
+}
+
+main ul li button div p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: start;
+  color: var(--secondary-text-color);
+}
+
+
+
+main div.noplaylists {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 2em;
+}
+
+main div.noplaylists a {
+  color: var(--spotify-green);
+}
+
+
+/* loading animatie bron: https://github.com/hosseinnabi-ir/CSS-Music-Waves-Loading-Animation */
+.loading {
+  width: 15em;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.loading div {
+  width: 12px;
+  border-radius: 10px;
+  background: var(--spotify-green);
+  animation: loader 1.5s ease-in-out infinite;
+}
+
+@keyframes loader {
+
+  0%,
+  100% {
+    height: 2px;
+  }
+
+  50% {
+    height: 80px;
+  }
+}
+
+.loading div:nth-child(1) {
+  animation-delay: 1s;
+}
+
+.loading div:nth-child(2) {
+  animation-delay: .8s;
+}
+
+.loading div:nth-child(3) {
+  animation-delay: .6s;
+}
+
+.loading div:nth-child(4) {
+  animation-delay: .4s;
+}
+
+.loading div:nth-child(5) {
+  animation-delay: .2s;
+}
+
+.loading div:nth-child(6) {
+  animation-delay: .2s;
+}
+
+.loading div:nth-child(7) {
+  animation-delay: .4s;
+}
+
+.loading div:nth-child(8) {
+  animation-delay: .6s;
+}
+
+.loading div:nth-child(9) {
+  animation-delay: .8s;
+}
+
+.loading div:nth-child(10) {
+  animation-delay: 1s;
+}

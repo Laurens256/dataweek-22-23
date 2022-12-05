@@ -1,0 +1,22 @@
+main {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+main section:first-of-type {
+  position: fixed;
+  max-width: 90%;
+  width: 60em;
+  height: 100vh;
+  justify-content: center;
+  margin-top: -10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--primary-text-color);
+  text-align: center;
+}

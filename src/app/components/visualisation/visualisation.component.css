@@ -1,0 +1,563 @@
+app-visualisation main {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  max-width: 60em;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+app-visualisation main #room {
+  position: absolute;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  transition: all 1.3s linear;
+  opacity: 1;
+}
+
+
+
+/*----------------------------------------
+DISCO
+----------------------------------------*/
+app-visualisation main app-disco {
+  display: none;
+}
+
+app-visualisation main app-disco.visible {
+  display: block;
+  position: absolute;
+  z-index: 7;
+  height: 100%;
+  width: 100%;
+  transform: translateY(-100%);
+}
+
+app-visualisation main.open app-disco.visible {
+  animation: discoSwoop 5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes discoSwoop {
+
+  0%,
+  10%,
+  90%,
+  100% {
+    transform: translateY(-100%);
+  }
+
+  30%,
+  70% {
+    transform: translateY(0);
+  }
+}
+
+app-visualisation main.discohidden #room,
+app-visualisation main.discohidden .dancecontainer,
+app-visualisation main.discohidden .dancecontainer img {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+
+/*----------------------------------------
+buttons voor filters, raw data, credits
+----------------------------------------*/
+app-visualisation main button {
+  position: absolute;
+  z-index: 6;
+  height: 4em;
+  width: 4em;
+  padding: 0.5em;
+}
+
+app-visualisation main button svg {
+  width: 100%;
+  height: 100%;
+}
+
+app-visualisation main button svg path {
+  fill: var(--secondary-text-color);
+  transition: all .2s ease-in-out;
+}
+
+app-visualisation main button:focus-visible svg path,
+app-visualisation main button:hover svg path {
+  fill: var(--primary-text-color);
+}
+
+app-visualisation main button.filterbtn {
+  top: 0;
+  right: 0;
+}
+
+app-visualisation main button.rawdatabtn {
+  top: 0;
+  left: 0;
+}
+
+/* code voor kleine hover effect, vraag me niet wat er allemaal gebeurt */
+app-visualisation main button.rawdatabtn:hover path:nth-of-type(2),
+app-visualisation main button.rawdatabtn:focus-visible path:nth-of-type(2),
+app-visualisation main aside:not(.hidden)~button.rawdatabtn path:nth-of-type(2) {
+  fill: var(--barmid);
+}
+app-visualisation main button.rawdatabtn:hover path:nth-of-type(3),
+app-visualisation main button.rawdatabtn:focus-visible path:nth-of-type(3),
+app-visualisation main aside:not(.hidden)~button.rawdatabtn path:nth-of-type(3) {
+  fill: var(--barlow);
+}
+app-visualisation main button.rawdatabtn:hover path:nth-of-type(4),
+app-visualisation main button.rawdatabtn:focus-visible path:nth-of-type(4),
+app-visualisation main aside:not(.hidden)~button.rawdatabtn path:nth-of-type(4) {
+  fill: var(--barhigh);
+}
+
+app-visualisation main aside:not(.hidden)~button.rawdatabtn path:nth-of-type(1),
+app-visualisation main aside:not(.hidden)~button.rawdatabtn:hover path,
+app-visualisation main aside:not(.hidden)~button.rawdatabtn:focus-visible path {
+  fill: white;
+}
+
+app-visualisation main g.creditsbtn {
+  cursor: pointer;
+}
+
+
+
+/*----------------------------------------
+popups voor filters, raw data, filters
+----------------------------------------*/
+app-visualisation main aside {
+  background: var(--bg-color);
+  color: var(--primary-text-color);
+  padding: 2em;
+  padding-top: 3em;
+  border-radius: .8em;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.2);
+  height: 20em;
+  width: 20em;
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  transition: all .8s cubic-bezier(.6, .04, .1, 3);
+  filter: none;
+  visibility: visible;
+}
+
+app-visualisation main aside.hidden {
+  border-radius: .8em;
+  filter: blur(3px);
+  z-index: 1;
+  top: 50%;
+  transform: translate(50%, -50%);
+  transition: all .8s cubic-bezier(0.90, -2, 0.40, 0.96);
+  visibility: hidden;
+}
+
+/* fix zodat popup links en rechts beide smooth animeert */
+app-visualisation main aside.filtercontainer.hidden {
+  right: 50%;
+}
+
+app-visualisation main aside.rawdatacontainer.hidden {
+  left: 0;
+}
+
+
+/* mobiel scherm popup */
+@media screen and (max-width:600px) {
+  app-visualisation main aside {
+    height: 90%;
+    width: 100%;
+    transition: all .4s ease-in-out;
+    z-index: 5;
+  }
+
+  app-visualisation main aside.hidden {
+    z-index: 5;
+    transform: translate(150%, 0);
+    top: 0;
+    right: 0;
+  }
+
+  app-visualisation main aside.rawdatacontainer.hidden {
+    transform: translate(-100%, 0);
+  }
+
+  app-visualisation main aside.rawdatacontainer ul li:last-of-type {
+    margin-bottom: 1.5em;
+  }
+}
+
+
+/*----------------------------------------
+popups voor raw data
+----------------------------------------*/
+app-visualisation main aside.rawdatacontainer:not(.hidden) {
+  top: 0;
+  left: 0;
+}
+
+app-visualisation main aside.rawdatacontainer {
+  overflow: hidden;
+  height: 27.5em;
+  max-height: 100%;
+}
+
+app-visualisation main aside.rawdatacontainer ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  overflow: auto;
+  margin-top: .5em;
+  max-height: 100%;
+}
+
+app-visualisation main aside.rawdatacontainer ul li {
+  display: flex;
+  flex-direction: column;
+  gap: .2em;
+}
+
+app-visualisation main aside.rawdatacontainer ul li:last-of-type {
+  margin-top: .5em;
+  text-align: center;
+}
+
+app-visualisation main aside.rawdatacontainer li>div {
+  height: 1.3em;
+  width: 100%;
+  border: solid 2px var(--primary-text-color);
+  position: relative;
+  border-radius: 1em;
+  overflow: hidden;
+}
+
+app-visualisation main aside.rawdatacontainer li>div::before,
+app-visualisation main aside.rawdatacontainer li>div::after {
+  content: ' ';
+  position: absolute;
+  height: 100%;
+  width: 2px;
+  background: var(--primary-text-color);
+  top: 0;
+  z-index: 2;
+}
+
+app-visualisation main aside.rawdatacontainer li>div::before {
+  left: 33%;
+}
+
+app-visualisation main aside.rawdatacontainer li>div::after {
+  left: 66%;
+}
+
+app-visualisation main aside.rawdatacontainer li>div>div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-duration: 1.5s;
+}
+
+
+
+/*----------------------------------------
+popup voor filters
+----------------------------------------*/
+app-visualisation main aside.filtercontainer:not(.hidden) {
+  top: 0;
+  right: 0;
+}
+
+app-visualisation main aside.filtercontainer div {
+  display: flex;
+  flex-direction: column;
+  gap: .5em;
+  margin-top: 1em;
+}
+
+app-visualisation main aside.filtercontainer div label {
+  display: flex;
+  flex-direction: row-reverse;
+  place-self: start;
+  gap: .5em;
+}
+
+app-visualisation main aside.filtercontainer div label:last-of-type {
+  margin-top: 1em;
+}
+
+@media screen and (min-width:601px) {
+
+  app-visualisation main aside.rawdatacontainer.delayedzindex,
+  app-visualisation main aside.filtercontainer.delayedzindex {
+    z-index: 5;
+  }
+}
+
+/*----------------------------------------
+popups voor credits
+----------------------------------------*/
+app-visualisation main aside.creditscontainer {
+  opacity: 0;
+  transition: all .4s ease-in-out;
+  filter: none;
+  width: 30em;
+  height: 30em;
+}
+
+app-visualisation main aside.creditscontainer:not(.hidden) {
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  opacity: 1;
+  z-index: 100;
+}
+
+app-visualisation main aside.creditscontainer button {
+  position: absolute;
+  top: 1.5em;
+  right: 1.5em;
+  background: var(--spotify-green);
+  border-radius: .7em;
+  transition: all .2s ease-in-out;
+}
+
+app-visualisation main aside.creditscontainer button:focus-visible,
+app-visualisation main aside.creditscontainer button:hover {
+  transform: scale(1.05);
+  background: var(--spotify-green-hover);
+}
+
+app-visualisation main aside.creditscontainer button:before,
+app-visualisation main aside.creditscontainer button:after {
+  position: absolute;
+  top: 10%;
+  right: calc(50% - 2px);
+  content: ' ';
+  height: 80%;
+  width: 4px;
+  background: var(--bg-color);
+  border-radius: 50em;
+}
+
+app-visualisation main aside.creditscontainer button:before {
+  transform: rotate(45deg);
+}
+
+app-visualisation main aside.creditscontainer button:after {
+  transform: rotate(-45deg);
+}
+
+app-visualisation main aside.creditscontainer ul {
+  margin-top: .5em;
+  display: flex;
+  gap: .5em;
+  flex-direction: column;
+}
+
+app-visualisation main aside.creditscontainer ul:not(:last-of-type) {
+  margin-bottom: 1em;
+}
+
+
+
+/*----------------------------------------
+visualisatie filter effects
+----------------------------------------*/
+app-visualisation .dancecontainer.hidden,
+app-visualisation .energy.hidden,
+app-visualisation .acoustic.hidden,
+app-visualisation .credits.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+app-visualisation .acoustic,
+app-visualisation .energy,
+app-visualisation .credits {
+  transition: all .4s ease-in-out;
+}
+
+
+
+app-visualisation .dancecontainer {
+  pointer-events: none;
+  opacity: 1;
+  position: absolute;
+  z-index: 3;
+  height: 0;
+  width: 0;
+  margin-left: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 1.3s ease-in-out;
+}
+
+app-visualisation .dancecontainer img {
+  pointer-events: all;
+}
+
+app-visualisation main.open .dancecontainer {
+  height: 100%;
+  width: 100%;
+  margin-left: 0;
+  transition: all .7s ease-in-out;
+}
+
+app-visualisation .dancecontainer:nth-of-type(1) img {
+  height: 20%;
+  left: 10%;
+  top: 10%;
+}
+
+app-visualisation .dancecontainer:nth-of-type(2) img {
+  height: 20%;
+  margin-left: 20%;
+  margin-top: 35%;
+}
+
+app-visualisation .dancecontainer:nth-of-type(3) img {
+  height: 20%;
+  margin-left: -30%;
+  margin-top: 25%;
+}
+
+app-visualisation main .tooltip {
+  position: absolute;
+  background: var(--spotify-green);
+  height: calc(fit-content + 1em);
+  width: calc(fit-content + 1em);
+  padding: .5em .5em;
+  opacity: 0;
+  transition: opacity .2s ease-in-out;
+  z-index: 8;
+  pointer-events: none;
+  border-radius: 8px;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.2);
+}
+
+app-visualisation .tooltip.visible {
+  opacity: 1;
+}
+
+app-visualisation main .tooltip p {
+  color: black;
+  text-align: center;
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+
+/* de html voor deze code staat in playlist.component.html vanwege structuur */
+/*----------------------------------------
+lichten animatie deels bron: https://codepen.io/bennettfeely/pen/OJqBgL?editors=1100
+----------------------------------------*/
+.discolightscontainer {
+  transition: all .4s ease-in-out;
+}
+
+.discolightscontainer.hidden {
+  opacity: 0;
+}
+
+.lightleftcontainer,
+.lightmiddlecontainer,
+.lightrightcontainer {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 8;
+}
+
+.lightleftcontainer {
+  filter: drop-shadow(0px 0px 10px cyan);
+}
+
+.lightmiddlecontainer {
+  filter: drop-shadow(0px 0px 10px hotpink);
+}
+
+.lightrightcontainer {
+  filter: drop-shadow(0px 0px 10px cyan);
+}
+
+div.lightleft::before,
+div.lightmiddle::before,
+div.lightright::before {
+  /* pointer-events: none; */
+  content: ' ';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: .025;
+}
+
+.lightleft::before {
+  animation: left 7s ease-in-out infinite;
+  background: radial-gradient(at bottom left, cyan, transparent);
+}
+
+.lightmiddle::before {
+  animation: middle 7s linear infinite;
+  background: radial-gradient(at bottom left, hotpink, transparent);
+}
+
+.lightright::before {
+  animation: right 8s ease-in-out alternate infinite;
+  background: radial-gradient(at bottom right, cyan, transparent);
+}
+
+@keyframes left {
+
+  from,
+  to {
+    clip-path: polygon(20% 0, 5% 100%, 0 100%, 0 95%, 0 0);
+  }
+
+  50% {
+    clip-path: polygon(100% 0, 5% 100%, 0 100%, 0 95%, 80% 0);
+  }
+}
+
+@keyframes middle {
+
+  0%,
+  50%,
+  100% {
+    clip-path: polygon(35% 0%, 65% 0%, 52% 100%, 48% 100%);
+  }
+
+  25% {
+    clip-path: polygon(50% 0%, 80% 0%, 52% 100%, 48% 100%);
+  }
+
+  75% {
+    clip-path: polygon(20% 0%, 50% 0%, 52% 100%, 48% 100%);
+  }
+}
+
+
+@keyframes right {
+
+  from,
+  to {
+    clip-path: polygon(100% 0, 100% 95%, 100% 100%, 95% 100%, 80% 0);
+  }
+
+  50% {
+    clip-path: polygon(20% 0, 100% 95%, 100% 100%, 95% 100%, 0 0);
+  }
+}
