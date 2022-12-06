@@ -10,6 +10,7 @@ import { SpotifyAuthService, AuthGuard, TokenService, SpotifyAuthInterceptor }
 from './core/services/spotifyAuth/index';
 import { TooltipService } from './core/services/tooltip.service';
 import { UserDataService } from './core/services/userData.service';
+import { YearTracksAmountPipe } from './core/pipes/year-tracks-amount.pipe';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { UserDataService } from './core/services/userData.service';
     AppComponent,
     //alle routing components in 1 variabele
     routingComponents,
+    YearTracksAmountPipe,
   ],
   imports: [
     BrowserModule,

@@ -80,7 +80,7 @@ export class VisualisationComponent implements OnInit {
       const date = track.album.release_date;
       this.trackDates.push({ year: +date.substring(0, 4), month: +date.substring(5, 7), day: +date.substring(8, 10) });
     });
-    console.log(this.trackDates);
+    console.log(this.playlistTracks);
 
     const startYear = Math.floor(this.trackDates[0].year / 10) * 10;
     const endYear = Math.ceil(this.trackDates[this.trackDates.length - 1].year / 10) * 10;
@@ -89,7 +89,6 @@ export class VisualisationComponent implements OnInit {
       this.yearRange.push(i);
     }
     this.yearRange[this.yearRange.length-1] = new Date().getFullYear()+2;
-    console.log(this.yearRange);
     this.loading = false;
   }
 

@@ -46,6 +46,7 @@ main {
   display: flex;
   overflow: scroll;
   padding: 1em 0;
+  scroll-snap-type: x mandatory;
 }
 
 .timeline .partscontainer {
@@ -60,6 +61,7 @@ main {
 }
 
 .timeline .partscontainer .timelinepart {
+  scroll-snap-align: center;
   position: relative;
   width: 80vw;
   height: 100%;
