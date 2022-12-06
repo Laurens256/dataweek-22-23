@@ -35,6 +35,8 @@ export class VisualisationComponent implements OnInit {
 
   individualYears: number[] = [];
 
+  selectedYear = 0;
+
 
   constructor(
     private tokenService: TokenService,
@@ -86,6 +88,8 @@ export class VisualisationComponent implements OnInit {
     for (let i = startYear; i <= endYear; i += this.yearStep) {
       this.yearRange.push(i);
     }
+    this.yearRange[this.yearRange.length-1] = new Date().getFullYear()+2;
+    console.log(this.yearRange);
     this.loading = false;
   }
 
@@ -93,6 +97,11 @@ export class VisualisationComponent implements OnInit {
     // maakt een lijst van alle unieke jaren in de playlist
     this.trackDates.forEach(date => this.individualYears.push(date.year));
     this.individualYears = [...new Set(this.individualYears)];
+    this.selectedYear = this.individualYears[0];
+  }
+
+  selectYear(id: string) {
+    this.selectedYear = parseInt(id.substring(4, 8));
   }
 
 }
