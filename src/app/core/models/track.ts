@@ -1,5 +1,5 @@
 export interface Track {
-  album: { id: string, images: [{ url: string }], name: string }
+  album: { id: string, images: [{ url: string }], name: string, release_date: string, release_date_precision: string, total_tracks: number, type: string, uri: string };
   artists: [{ id: string, name: string }]
   disc_number: number
   duration_ms: number

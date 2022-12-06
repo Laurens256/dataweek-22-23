@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
-import { Track, AudioFeatures, Playlist, UserProfile } from '../models';
+import { Track, Playlist, UserProfile } from '../models';
 
 @Injectable()
 export class UserDataService {
 
   userProfileUri = 'https://api.spotify.com/v1/me';
   userPlaylistsUri = 'https://api.spotify.com/v1/me/playlists'
-  playlistTracksUri = 'https://api.spotify.com/v1/playlists'
-  playlistTrackFeaturesUri = 'https://api.spotify.com/v1/audio-features?ids='
+  playlistTracksUri = 'https://api.spotify.com/v1/playlists';
 
 
   constructor(
@@ -51,29 +50,15 @@ export class UserDataService {
       })
     }
 
+    // sorteer op release date
+    allTracks.sort((a, b) => +new Date(a.album.release_date) - +new Date(b.album.release_date))
+
     //als playlist opnieuw was opgehaald, return die. Anders return die niet
     if(playlist != null) {
       return { playlist: playlist, allTracks: allTracks, allTrackIds: allTrackIds };
     } else {
       return { allTracks: allTracks, allTrackIds: allTrackIds };
     }
-  }
-
-  async getAudioFeatures(ids: string[] | string) {
-    // haalt audio features van alle songs op, weer een loop vanwege de limit
-    let allAudioFeatures: AudioFeatures[] = [];
-    for (let i = 0; i < ids.length / 100; i++) {
-      //sliced iedere keer 100 ids voor 1 http request
-      let idsLimit: string[] | string | {}[] = ids.slice(i * 100, i * 100 + 100);
-      if (typeof idsLimit !== 'string') {
-        idsLimit = idsLimit.join(',');
-      }
-
-      const songs = await firstValueFrom(this.http.get<{ audio_features: AudioFeatures[] }>(`${this.playlistTrackFeaturesUri}${idsLimit}`));
-
-      songs.audio_features.forEach((song) => allAudioFeatures.push(song));
-    }
-    return allAudioFeatures;
   }
 
 }

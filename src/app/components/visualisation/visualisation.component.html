@@ -1,1 +1,22 @@
-<p>coole visualisatie met lijnen en shit</p>
+<main>
+
+  <ul>
+    <li *ngFor="let track of playlistTracks">{{track.name}}: {{track.album.release_date}}</li>
+  </ul>
+
+  <section class="timeline" *ngIf="!loading">
+    <div class="partscontainer">
+      <div class="timelinepart" *ngFor="let range of yearRange; let i = index" [attr.data-index]="i">{{i===0 ? range :
+        range - 1}}
+
+        <ng-container *ngFor="let year of individualYears; let j = index">
+          <button *ngIf="year >= range && year < range+yearStep-1"
+            [style.left]="(year - range-yearStep + 11)*10+'%'" id="year{{year}}">
+            {{year}}
+          </button>
+        </ng-container>
+
+      </div>
+    </div>
+  </section>
+</main>
