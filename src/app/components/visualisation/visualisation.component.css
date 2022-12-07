@@ -174,7 +174,7 @@ background zooi
   z-index: -1;
 }
 
-main div.bg-container {
+.allbgs .bg-container {
   position: absolute;
   bottom: 0;
   height: 100%;
@@ -182,4 +182,10 @@ main div.bg-container {
   background-repeat: repeat-x;
   background-position: bottom right;
   background-size: cover;
+}
+
+.allbgs .bg-container svg {
+  height: 100%;
+  position: absolute;
+  right: 0;
 }

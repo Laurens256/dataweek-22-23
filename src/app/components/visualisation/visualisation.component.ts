@@ -36,6 +36,14 @@ export class VisualisationComponent implements OnInit {
 
   selectedYear = new Date().getFullYear();
 
+  randomSongInRange: {
+    year: number,
+    name: string,
+    artist: string,
+    img: string,
+    preview_url: string
+  }[] = [];
+
 
   constructor(
     private tokenService: TokenService,
@@ -68,6 +76,8 @@ export class VisualisationComponent implements OnInit {
     if (data.playlist != null) this.playlist = data.playlist;
     this.playlistTracks = data.allTracks;
     this.playlistTrackIds = data.allTrackIds;
+
+    console.log(this.playlistTracks)
 
     // this.getPlaylistColor(this.playlist.images[0].url);
     this.calcTimelineSize();
