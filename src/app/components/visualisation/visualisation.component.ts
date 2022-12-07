@@ -1,13 +1,13 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 
 import { UserDataService } from 'src/app/core/services/userData.service';
 import { TokenService, SpotifyAuthService } from 'src/app/core/services/spotifyAuth';
 import { TooltipService } from 'src/app/core/services/tooltip.service';
-import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
 
 import { Playlist, Track } from 'src/app/core/models';
 
+let mainElement!: HTMLElement;
 @Component({
   selector: 'app-visualisation',
   templateUrl: './visualisation.component.html',
@@ -33,9 +33,10 @@ export class VisualisationComponent implements OnInit {
   yearRange: number[] = [];
   yearStep = 10;
 
+
   individualYears: number[] = [];
 
-  selectedYear = 0;
+  selectedYear = new Date().getFullYear();
 
 
   constructor(
@@ -80,7 +81,6 @@ export class VisualisationComponent implements OnInit {
       const date = track.album.release_date;
       this.trackDates.push({ year: +date.substring(0, 4), month: +date.substring(5, 7), day: +date.substring(8, 10) });
     });
-    console.log(this.playlistTracks);
 
     const startYear = Math.floor(this.trackDates[0].year / 10) * 10;
     const endYear = Math.ceil(this.trackDates[this.trackDates.length - 1].year / 10) * 10;
@@ -88,8 +88,8 @@ export class VisualisationComponent implements OnInit {
     for (let i = startYear; i <= endYear; i += this.yearStep) {
       this.yearRange.push(i);
     }
-    this.yearRange[this.yearRange.length-1] = new Date().getFullYear()+2;
-    this.loading = false;
+    this.yearRange[this.yearRange.length - 1] = new Date().getFullYear() + 2;
+    this.loadScrollLogic();
   }
 
   generateIndividualYears() {
@@ -97,6 +97,21 @@ export class VisualisationComponent implements OnInit {
     this.trackDates.forEach(date => this.individualYears.push(date.year));
     this.individualYears = [...new Set(this.individualYears)];
     this.selectedYear = this.individualYears[0];
+  }
+
+  loadScrollLogic(): void {
+    mainElement = document.querySelector("main")!;
+    mainElement.style.backgroundImage = `url(../../../assets/achtergrond_${this.yearRange[0]}.svg)`;
+    const scrollSize = mainElement.clientWidth;
+    this.loading = false;
+    mainElement.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      if (e.deltaY > 0) {
+        mainElement.scrollLeft += scrollSize;
+      } else {
+        mainElement.scrollLeft -= scrollSize;
+      }
+    });
   }
 
   selectYear(id: string) {

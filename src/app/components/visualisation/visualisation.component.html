@@ -1,9 +1,4 @@
 <main>
-
-  <!-- <ul>
-    <li *ngFor="let track of playlistTracks">{{track.name}}: {{track.album.release_date}}</li>
-  </ul> -->
-
   <!-- timeline voor muziek binnen een jaar -->
   <section class="monthlinecontainer">
     <div class="monthline"></div>
@@ -17,22 +12,20 @@
   <!-- extra info over jaar -->
   <section class="info">
     <h2>{{selectedYear}}</h2>
-    <p>Deze playlist bevat {{trackDates | yearTracksAmount: selectedYear}} nummers uit {{selectedYear}}.</p>
+    <p>Deze playlist bevat {{trackDates | yearTracksAmount: selectedYear}} nummer(s) uit {{selectedYear}}.</p>
   </section>
 
   <!-- main timeline met jaartallen, vraag met niet wat er allemaal gebeurt -->
   <section class="timeline" *ngIf="!loading">
     <div class="partscontainer">
-      <div class="timelinepart" *ngFor="let range of yearRange; let i = index" [attr.data-index]="i">{{i===0 ? range :
+      <div class="timelinepart" *ngFor="let range of yearRange; let i = index" [attr.data-index]="i" id="range{{range}}">{{i===0 ? range :
         range - 1}}
-
         <ng-container *ngFor="let year of individualYears; let j = index">
           <button *ngIf="year >= range && year < range+yearStep-1" #yearSelect (click)="selectYear(yearSelect.id)"
             [style.left]="(year - range-yearStep + 11)*10+'%'" id="year{{year}}" class="yearbutton">
             {{year}}
           </button>
         </ng-container>
-
       </div>
     </div>
   </section>
