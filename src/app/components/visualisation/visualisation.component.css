@@ -1,17 +1,37 @@
+/*------------------
+container
+------------------*/
 main {
   position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  /* background-image: url(../../../assets/achtergrond_1950.svg); */
-  background-repeat: no-repeat;
-  background-position: bottom left;
-  background-size: contain;
-  overflow: scroll;
+  overflow: hidden;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+  transition: background 0.3s ease-in-out;
 }
 
+main div.bg-container {
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  width: 80vw;
+  /* background-image: url(../../../assets/50s.svg); */
+  background-repeat: repeat-x;
+  background-position: bottom right;
+  background-size: cover;
+}
+
+main div.bg-container:nth-of-type(2){
+  /* transform: translateX(80vw); */
+}
+
+
+
+/*------------------
+maand tijdlijn aan de zijkant
+------------------*/
 .monthlinecontainer {
   position: fixed;
   height: 60%;
@@ -21,6 +41,7 @@ main {
   top: 10vh;
   left: 10vw;
   display: flex;
+  display: none;
 }
 
 .monthlinecontainer .monthline {
@@ -42,23 +63,23 @@ main {
 
 
 
-
+/*------------------
+hoofd tijdlijn aan de bovenkant
+------------------*/
 .timeline {
   box-sizing: content-box;
   position: absolute;
-  bottom: 5em;
+  top: 2em;
   left: 0;
   width: 100%;
   height: 2em;
   display: flex;
   overflow: visible;
-  /* overflow-x: auto; */
   padding: 1em 0;
 }
 
 .timeline .partscontainer {
   width: fit-content;
-  background: blue;
   height: 80%;
   display: flex;
   align-items: center;
@@ -70,23 +91,88 @@ main {
   scroll-snap-align: center;
   position: relative;
   width: 80vw;
-  height: 100%;
+  height: 0;
+  border-top: solid 2px var(--primary-timeline);
+  border-bottom: solid 2px var(--primary-timeline);
   margin: 0 auto;
   background-color: red;
+  overflow: visible;
 }
 
 .timeline .partscontainer .timelinepart:last-of-type {
   width: fit-content;
 }
 
+.timeline .partscontainer .timelinepart>span {
+  position: absolute;
+  top: -2em;
+  left: -1.3em;
+  font-size: 1.2em;
+  font-weight: 500;
+  color: var(--primary-timeline);
+}
+
+.timeline .partscontainer .timelinepart:last-of-type>span {
+  left: -1.2em;
+}
+
+.timeline .partscontainer .timelinepart:not(:last-of-type)::after,
+.timeline .partscontainer .timelinepart:first-of-type::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 1.5em;
+  background-color: var(--primary-timeline);
+}
+
+.timeline .partscontainer .timelinepart:first-of-type::before {
+  left: 0;
+}
+
 .timeline .partscontainer .timelinepart button {
-  /* scroll-snap-align: center; */
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 4em;
-  background: grey;
-  height: 100%;
-  border: solid 1px blue;
-  font-size: .7em;
+  background: var(--primary-timeline);
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+}
+
+.timeline .partscontainer .timelinepart button>span {
+  position: absolute;
+  top: 110%;
+  right: -100%;
+  transform: rotate(45deg);
+  font-size: 1em;
+}
+
+
+/*------------------
+info popup panel
+------------------*/
+/* create a panel that can be toggled with an active class */
+.info {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90%;
+  width: 30em;
+  max-height: 80%;
+  height: 40em;
+  background-color: red;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.info.active {
+  opacity: 1;
 }

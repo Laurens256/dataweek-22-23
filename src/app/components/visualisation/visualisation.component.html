@@ -10,7 +10,7 @@
   </section>
 
   <!-- extra info over jaar -->
-  <section class="info">
+  <section class="info" #infoSection>
     <h2>{{selectedYear}}</h2>
     <p>Deze playlist bevat {{trackDates | yearTracksAmount: selectedYear}} nummer(s) uit {{selectedYear}}.</p>
   </section>
@@ -18,15 +18,29 @@
   <!-- main timeline met jaartallen, vraag met niet wat er allemaal gebeurt -->
   <section class="timeline" *ngIf="!loading">
     <div class="partscontainer">
-      <div class="timelinepart" *ngFor="let range of yearRange; let i = index" [attr.data-index]="i" id="range{{range}}">{{i===0 ? range :
-        range - 1}}
+      <div class="timelinepart" *ngFor="let range of yearRange; let i = index; last as isLast" [attr.data-index]="i"
+        id="range{{range}}">
+        <!-- {{i===0 ? range : range - 1}} -->
+        <span>{{range}}<ng-container *ngIf="!isLast">s</ng-container></span>
         <ng-container *ngFor="let year of individualYears; let j = index">
-          <button *ngIf="year >= range && year < range+yearStep-1" #yearSelect (click)="selectYear(yearSelect.id)"
-            [style.left]="(year - range-yearStep + 11)*10+'%'" id="year{{year}}" class="yearbutton">
-            {{year}}
+          <button *ngIf="year >= range && year < range+yearStep-1" #yearSelect
+            (click)="selectYear(infoSection, yearSelect.id)" [style.left]="(year - range-yearStep + 11)*10+'%'"
+            id="year{{year}}" class="yearbutton">
+            <span>{{year}}</span>
           </button>
         </ng-container>
       </div>
     </div>
   </section>
+
+  <div>
+    <div *ngFor="let range of yearRange; let i = index; last as isLast" class="bg-container" [ngStyle]="{
+    'transform': (isLast) ? 'translateX(-100vw)' : 'translateX('+i*80+'vw)',
+    'background-image': (isLast) ? 'none' : 'url(../../../assets/achtergrond_'+range+'.svg)'
+  }">
+    </div>
+  </div>
 </main>
+
+<!-- [ngStyle]="{'transform': (isLast) ? 'translateX(10000vw)' : 'translateX('+i*80+'vw)'}" -->
+<!-- [style.transform]="'translateX('+i*80+'vw)'" -->

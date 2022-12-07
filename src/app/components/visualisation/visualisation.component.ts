@@ -101,7 +101,7 @@ export class VisualisationComponent implements OnInit {
 
   loadScrollLogic(): void {
     mainElement = document.querySelector("main")!;
-    mainElement.style.backgroundImage = `url(../../../assets/achtergrond_${this.yearRange[0]}.svg)`;
+    // mainElement.style.backgroundImage = `url(../../../assets/achtergrond_${this.yearRange[0]}.svg)`;
     const scrollSize = mainElement.clientWidth;
     this.loading = false;
     mainElement.addEventListener("wheel", (e) => {
@@ -114,8 +114,10 @@ export class VisualisationComponent implements OnInit {
     });
   }
 
-  selectYear(id: string) {
-    this.selectedYear = parseInt(id.substring(4, 8));
+  selectYear(target: HTMLElement, id?: string) {
+    target.classList.toggle('active');
+    mainElement.style.background = 'blue';
+    if(id) this.selectedYear = parseInt(id.substring(4, 8));
   }
 
 }

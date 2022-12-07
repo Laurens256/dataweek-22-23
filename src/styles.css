@@ -9,9 +9,15 @@
 
 :root {
   /* colors */
-  --bg-color: #212121;
-  --primary-text-color: #fff;
+  --bg-color: #99BAA7;
+  --primary-text-color: #000;
   --secondary-text-color: #b3b3b3;
+  --primary-timeline: #252525;
+
+  /* decade colors */
+  --year1950: #99BAA7;
+  --year1960: #D998A0;
+  --year1970: #F3A227;
 
   /* constants */
   --bg-color-dark: #212121;
