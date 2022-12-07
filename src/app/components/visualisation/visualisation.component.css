@@ -12,21 +12,6 @@ main {
   transition: background 0.3s ease-in-out;
 }
 
-main div.bg-container {
-  position: absolute;
-  bottom: 0;
-  height: 100%;
-  width: 80vw;
-  /* background-image: url(../../../assets/50s.svg); */
-  background-repeat: repeat-x;
-  background-position: bottom right;
-  background-size: cover;
-}
-
-main div.bg-container:nth-of-type(2){
-  /* transform: translateX(80vw); */
-}
-
 
 
 /*------------------
@@ -154,25 +139,47 @@ hoofd tijdlijn aan de bovenkant
 /*------------------
 info popup panel
 ------------------*/
-/* create a panel that can be toggled with an active class */
 .info {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-200%, -200%);
   max-width: 90%;
   width: 30em;
   max-height: 80%;
   height: 40em;
   background-color: red;
   opacity: 0;
-  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  transition: all 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  z-index: 5;
 }
 
 .info.active {
+  transform: translate(-50%, -50%);
   opacity: 1;
+}
+
+
+
+/*------------------
+background zooi
+------------------*/
+.allbgs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: fit-content;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+main div.bg-container {
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  width: 80vw;
+  background-repeat: repeat-x;
+  background-position: bottom right;
+  background-size: cover;
 }

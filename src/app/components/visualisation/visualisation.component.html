@@ -33,10 +33,11 @@
     </div>
   </section>
 
-  <div>
+  <div class="allbgs">
     <div *ngFor="let range of yearRange; let i = index; last as isLast" class="bg-container" [ngStyle]="{
     'transform': (isLast) ? 'translateX(-100vw)' : 'translateX('+i*80+'vw)',
-    'background-image': (isLast) ? 'none' : 'url(../../../assets/achtergrond_'+range+'.svg)'
+    'background-image': (isLast) ? 'none' : 'url(../../../assets/achtergrond_'+range+'.svg)',
+    'background-color': (isLast) ? 'none' : 'var(--year'+range+')'
   }">
     </div>
   </div>

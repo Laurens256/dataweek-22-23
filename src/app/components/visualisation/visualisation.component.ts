@@ -12,13 +12,12 @@ let mainElement!: HTMLElement;
   selector: 'app-visualisation',
   templateUrl: './visualisation.component.html',
   styleUrls: ['./visualisation.component.css'],
-  // encapsulation: ViewEncapsulation.None,
 })
 export class VisualisationComponent implements OnInit {
 
   loading: boolean = true;
   hasPlaylist: boolean = false;
-  visualisationOpen: boolean = false;
+  popupOpen: boolean = false;
 
   playlist!: Playlist;
 
@@ -32,7 +31,6 @@ export class VisualisationComponent implements OnInit {
   }[] = []
   yearRange: number[] = [];
   yearStep = 10;
-
 
   individualYears: number[] = [];
 
@@ -106,6 +104,7 @@ export class VisualisationComponent implements OnInit {
     this.loading = false;
     mainElement.addEventListener("wheel", (e) => {
       e.preventDefault();
+      if(this.popupOpen) return;
       if (e.deltaY > 0) {
         mainElement.scrollLeft += scrollSize;
       } else {
@@ -116,7 +115,11 @@ export class VisualisationComponent implements OnInit {
 
   selectYear(target: HTMLElement, id?: string) {
     target.classList.toggle('active');
-    mainElement.style.background = 'blue';
+    if(target.classList.contains('active')) {
+      this.popupOpen = true;
+    } else {
+      this.popupOpen = false;
+    }
     if(id) this.selectedYear = parseInt(id.substring(4, 8));
   }
 
