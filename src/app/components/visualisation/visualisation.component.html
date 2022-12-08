@@ -39,7 +39,7 @@
     'background-color': (isLast) ? 'none' : 'var(--year'+range+')',
     'z-index': yearRange.length - i
   }">
-      <svg [outerHTML]="loadBackgrounds(range, isLast) | safe: 'html'"></svg>
+      <svg [outerHTML]="loadBackground(range, isLast) | safe: 'html'"></svg>
     </div>
   </div>
 </main>

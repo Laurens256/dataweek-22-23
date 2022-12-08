@@ -80,8 +80,11 @@ app-visualisation .timeline .partscontainer .timelinepart {
   border-top: solid 2px var(--primary-timeline);
   border-bottom: solid 2px var(--primary-timeline);
   margin: 0 auto;
-  background-color: red;
   overflow: visible;
+}
+
+app-visualisation .timeline .partscontainer .timelinepart.active {
+    border-color: red;
 }
 
 app-visualisation .timeline .partscontainer .timelinepart:last-of-type {

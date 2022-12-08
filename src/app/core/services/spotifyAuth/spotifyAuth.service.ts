@@ -14,7 +14,7 @@ export class SpotifyAuthService {
     client_id: environment.client_id,
     response_type: 'code',
     redirect_uri: environment.apiUrl,
-    scope: ''
+    scope: 'playlist-read-private playlist-read-collaborative'
   };
 
 
