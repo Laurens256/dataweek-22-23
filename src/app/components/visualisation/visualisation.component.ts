@@ -8,10 +8,6 @@ import { achtergrond_1950, achtergrond_1960, achtergrond_1970, achtergrond_1980,
 
 import { Playlist, Track } from 'src/app/core/models';
 
-interface BgSetInterface {
-    [key: number]: any
-}
-
 let mainElement!: HTMLElement;
 @Component({
     selector: 'app-visualisation',
@@ -60,7 +56,7 @@ export class VisualisationComponent implements OnInit, AfterContentChecked {
         achtergrond_1980: achtergrond_1980,
         achtergrond_1990: achtergrond_1990,
         achtergrond_2000: achtergrond_2000,
-        achtergrond_2010: achtergrond_2000,
+        achtergrond_2010: achtergrond_2010,
         achtergrond_2020: achtergrond_2000,
     };
 
@@ -91,15 +87,15 @@ export class VisualisationComponent implements OnInit, AfterContentChecked {
     albumSet: boolean = false;
     ngAfterContentChecked() {
         // zet 1 keer als de pagina laadt een random album cover, veel te ingewikkeld maar het werkt
-        if(this.albumSet) return;
+        if (this.albumSet) return;
         const albums = document.querySelectorAll('.album');
-        for(let i=0; i<albums.length; i++) {
+        for (let i = 0; i < albums.length; i++) {
             if (albums[i]) {
                 const year = albums[i].id.substring(5, 9);
                 if (this.songsInRange[year]) {
                     const randomSong = this.songsInRange[year][Math.floor(Math.random() * this.songsInRange[year].length)];
                     albums[i].setAttribute('href', randomSong.img);
-                    if(i == albums.length-1) {
+                    if (i == albums.length - 1) {
                         this.albumSet = true;
                     }
                 }
@@ -204,15 +200,25 @@ export class VisualisationComponent implements OnInit, AfterContentChecked {
         }
     }
 
+    prev: {}[] = [];
+
     cycleRandomSong(id: string) {
         const year = parseInt(id.substring(5, 9));
         const index = this.yearRange.indexOf(year);
         if (this.songsInRange[year] == null) return;
 
+        // cycled door alle songs in een decennium heen, als een playlist meer dan 1 nr uit een decennium bevat wordt er een random nr gekozen wat anders is dan de vorige
+        //dit is echt de meest messy code die ik ooit heb geschreven
         this.randomSongsInRange[index] = this.songsInRange[year][Math.floor(Math.random() * this.songsInRange[year].length)];
         const albumCover: SVGImageElement = document.querySelector(`#album${year}`)!;
         if (albumCover != null && this.randomSongsInRange[index] != null) {
-            albumCover.setAttribute('href', this.randomSongsInRange[index].img);
+            if (this.songsInRange[year].length > 1) {
+                while (this.prev.includes(this.randomSongsInRange[index])) {
+                    this.randomSongsInRange[index] = this.songsInRange[year][Math.floor(Math.random() * this.songsInRange[year].length)];
+                }
+                this.prev[index] = this.randomSongsInRange[index];
+                albumCover.setAttribute('href', this.randomSongsInRange[index].img);
+            }
         }
     }
 
