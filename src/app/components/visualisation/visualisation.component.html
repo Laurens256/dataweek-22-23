@@ -1,6 +1,6 @@
 <main>
-  <!-- timeline voor muziek binnen een jaar -->
-  <!-- <section class="monthlinecontainer">
+    <!-- timeline voor muziek binnen een jaar -->
+    <!-- <section class="monthlinecontainer">
     <div class="monthline"></div>
     <ul>
       <li *ngFor="let track of playlistTracks; let i = index">
@@ -9,43 +9,49 @@
     </ul>
   </section> -->
 
-  <!-- extra info over jaar -->
-  <section class="info" #infoSection>
-    <h2>{{selectedYear}}</h2>
-    <p>Deze playlist bevat {{trackDates | yearTracksAmount: selectedYear}} nummer(s) uit {{selectedYear}}.</p>
-  </section>
+    <!-- extra info over jaar -->
+    <section class="info" #infoSection>
+        <h2>{{selectedYear}}</h2>
+        <p>Deze playlist bevat {{trackDates | yearTracksAmount: selectedYear}} nummer(s) uit {{selectedYear}}.</p>
+    </section>
 
-  <!-- main timeline met jaartallen, vraag met niet wat er allemaal gebeurt -->
-  <section class="timeline" *ngIf="!loading">
-    <div class="partscontainer">
-      <div class="timelinepart" *ngFor="let range of yearRange; let i = index; last as isLast" [attr.data-index]="i"
-        id="range{{range}}">
-        <!-- {{i===0 ? range : range - 1}} -->
-        <span>{{range}}<ng-container *ngIf="!isLast">s</ng-container></span>
-        <ng-container *ngFor="let year of individualYears; let j = index">
-          <button *ngIf="year >= range && year < range+yearStep" #yearSelect
-            (click)="selectYear(infoSection, yearSelect.id)" [style.left]="(year - range-yearStep + 10)*10+'%'"
-            id="year{{year}}" class="yearbutton">
-            <span>{{year}}</span>
-          </button>
-        </ng-container>
-      </div>
-    </div>
-  </section>
+    <!-- main timeline met jaartallen, vraag met niet wat er allemaal gebeurt -->
+    <section class="timeline" *ngIf="!loading">
+        <div class="partscontainer">
+            <div class="timelinepart" *ngFor="let range of yearRange; let i = index; last as isLast"
+                [attr.data-index]="i" id="range{{range}}">
+                <!-- {{i===0 ? range : range - 1}} -->
+                <span>{{range}}<ng-container *ngIf="!isLast">s</ng-container></span>
+                <ng-container *ngFor="let year of individualYears; let j = index">
+                    <button *ngIf="year >= range && year < range+yearStep" #yearSelect
+                        (click)="selectYear(infoSection, yearSelect.id)"
+                        [style.left]="(year - range-yearStep + 10)*10+'%'" id="year{{year}}" class="yearbutton">
+                        <span>{{year}}</span>
+                    </button>
+                </ng-container>
+            </div>
+        </div>
+    </section>
 
-  <div class="allbgs">
-    <div *ngFor="let range of yearRange; let i = index; last as isLast" class="bg-container" [ngStyle]="{
+    <div class="allbgs">
+        <div *ngFor="let range of yearRange; let i = index; last as isLast" class="bg-container" [ngStyle]="{
     'transform': (isLast) ? 'translateX(-100vw)' : 'translateX('+i*80+'vw)',
     'background-color': (isLast) ? 'none' : 'var(--year'+range+')',
     'z-index': yearRange.length - i}">
 
-      <svg [outerHTML]="loadBackground(range, isLast) | safe: 'html'"></svg>
+            <svg [outerHTML]="loadBackground(range, isLast) | safe: 'html'"></svg>
 
-      <section class="randominfo" *ngIf="randomSongsInRange[i]">
-        <h1>{{randomSongsInRange[i].name}}</h1>
-        <p>{{randomSongsInRange[i].artist}} - {{randomSongsInRange[i].album}}</p>
-        <p>{{randomSongsInRange[i].date | date}}</p>
-    </section>
+            <section class="randominfo" *ngIf="randomSongsInRange[i]">
+                <h1>{{randomSongsInRange[i].name}}</h1>
+                <p>{{randomSongsInRange[i].artist}} - {{randomSongsInRange[i].album}}</p>
+                <p>{{randomSongsInRange[i].date | date}}</p>
+            </section>
+        </div>
     </div>
-  </div>
 </main>
+
+<!-- (ended)="chooseRandomTrack(true)" -->
+
+<audio #audio preload="auto" id="{{randomSongCurrentRange}}" (ended)="playRandomSongInRange(audio.id, true)">
+    <source *ngIf="randomSongPreview !== ''" src="{{randomSongPreview}}" type="audio/mp3">
+</audio>

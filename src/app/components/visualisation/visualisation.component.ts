@@ -9,6 +9,7 @@ import { achtergrond_1950, achtergrond_1960, achtergrond_1970, achtergrond_1980,
 import { Playlist, Track } from 'src/app/core/models';
 
 let mainElement!: HTMLElement;
+let timelineParts: NodeListOf<HTMLElement>;
 @Component({
     selector: 'app-visualisation',
     templateUrl: './visualisation.component.html',
@@ -102,6 +103,8 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
                         this.albumSet = true;
                         const evt = new WheelEvent('wheel', { deltaY: 0 });
                         mainElement.dispatchEvent(evt);
+
+                        timelineParts = document.querySelectorAll('.timelinepart');
                     }
                 }
             }
@@ -149,6 +152,7 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
                 range: yearDecennium,
                 album: track.album.name,
             });
+            this.randomSongsPreviewObj[yearDecennium] = this.songsInRange[yearDecennium].filter((track: any) => track.preview_url != null);
         });
     }
 
@@ -196,8 +200,6 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
 
     prevDecennium: number = 0;
     checkViewport() {
-        //geen idee waarom maar werkt alleen als queryselector hier pas wordt aangeroepen
-        const timelineParts = document.querySelectorAll('.timelinepart');
         timelineParts.forEach(part => {
             // check of element in viewport is
             const year = parseInt(part.id.substring(5, 9));
@@ -205,7 +207,8 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
             if (rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth)) {
                 clearInterval(this.interval);
                 this.prevDecennium = Math.floor(year / 10) * 10;
-                this.cycleRandomSong(part.id)
+                this.cycleRandomSong(part.id);
+                this.playRandomSongInRange(Math.floor(year / 10) * 10);
             }
         });
     }
@@ -243,7 +246,31 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
                     }
                 }
             }
-        }, 3500)
+        }, 3000)
+    }
+
+    randomSongsPreviewObj: any = {};
+    randomSongPreview: string = '';
+    randomSongCurrentRange: number = 0;
+    playRandomSongInRange(range: number | string, prev?: boolean) {
+        if(typeof range === 'string') range = parseInt(range);
+        const audio: HTMLAudioElement = document.querySelector('audio')!;
+        this.randomSongCurrentRange = range;
+
+        if(audio.id == range.toString() && !prev) {
+            return;
+        } else {
+            //als decennium meer dan 1 nr heeft wordt altijd een ander nummer gekozen dan de vorige
+            let randomSong = this.randomSongsPreviewObj[range][Math.floor(Math.random() * this.randomSongsPreviewObj[range].length)].preview_url;
+            if(this.songsInRange[range].length > 1) {
+                while (randomSong == this.randomSongPreview) {
+                    randomSong = this.songsInRange[range][Math.floor(Math.random() * this.randomSongsPreviewObj[range].length)].preview_url;
+                }
+            }
+            this.randomSongPreview = randomSong;
+            audio.load();
+            audio.play();
+        }
     }
 
     // open popup met alle nrs uit gekozen jaar
