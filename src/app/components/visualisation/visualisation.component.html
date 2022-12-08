@@ -23,8 +23,8 @@
         <!-- {{i===0 ? range : range - 1}} -->
         <span>{{range}}<ng-container *ngIf="!isLast">s</ng-container></span>
         <ng-container *ngFor="let year of individualYears; let j = index">
-          <button *ngIf="year >= range && year < range+yearStep-1" #yearSelect
-            (click)="selectYear(infoSection, yearSelect.id)" [style.left]="(year - range-yearStep + 11)*10+'%'"
+          <button *ngIf="year >= range && year < range+yearStep" #yearSelect
+            (click)="selectYear(infoSection, yearSelect.id)" [style.left]="(year - range-yearStep + 10)*10+'%'"
             id="year{{year}}" class="yearbutton">
             <span>{{year}}</span>
           </button>

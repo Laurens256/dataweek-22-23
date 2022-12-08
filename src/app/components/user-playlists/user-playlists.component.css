@@ -6,6 +6,7 @@ main {
   background: url(../../../assets/bg.svg) no-repeat bottom right;
   background-size: cover;
   background-attachment: fixed;
+  padding-bottom: 7.5em;
 }
 
 main header {
