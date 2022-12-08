@@ -1,7 +1,7 @@
 /*------------------
 container
 ------------------*/
-main {
+app-visualisation main {
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -17,7 +17,7 @@ main {
 /*------------------
 maand tijdlijn aan de zijkant
 ------------------*/
-.monthlinecontainer {
+app-visualisation .monthlinecontainer {
   position: fixed;
   height: 60%;
   max-width: 80vw;
@@ -29,13 +29,13 @@ maand tijdlijn aan de zijkant
   display: none;
 }
 
-.monthlinecontainer .monthline {
+app-visualisation .monthlinecontainer .monthline {
   width: 2em;
   height: 100%;
   background-color: blue;
 }
 
-.monthlinecontainer ul {
+app-visualisation .monthlinecontainer ul {
   position: absolute;
   top: 0;
   left: 2em;
@@ -51,7 +51,7 @@ maand tijdlijn aan de zijkant
 /*------------------
 hoofd tijdlijn aan de bovenkant
 ------------------*/
-.timeline {
+app-visualisation .timeline {
   box-sizing: content-box;
   position: absolute;
   top: 2em;
@@ -63,7 +63,7 @@ hoofd tijdlijn aan de bovenkant
   padding: 1em 0;
 }
 
-.timeline .partscontainer {
+app-visualisation .timeline .partscontainer {
   width: fit-content;
   height: 80%;
   display: flex;
@@ -72,7 +72,7 @@ hoofd tijdlijn aan de bovenkant
   padding: 0 10vw;
 }
 
-.timeline .partscontainer .timelinepart {
+app-visualisation .timeline .partscontainer .timelinepart {
   scroll-snap-align: center;
   position: relative;
   width: 80vw;
@@ -84,11 +84,11 @@ hoofd tijdlijn aan de bovenkant
   overflow: visible;
 }
 
-.timeline .partscontainer .timelinepart:last-of-type {
+app-visualisation .timeline .partscontainer .timelinepart:last-of-type {
   width: fit-content;
 }
 
-.timeline .partscontainer .timelinepart>span {
+app-visualisation .timeline .partscontainer .timelinepart>span {
   position: absolute;
   top: -2em;
   left: -1.3em;
@@ -97,12 +97,12 @@ hoofd tijdlijn aan de bovenkant
   color: var(--primary-timeline);
 }
 
-.timeline .partscontainer .timelinepart:last-of-type>span {
+app-visualisation .timeline .partscontainer .timelinepart:last-of-type>span {
   left: -1.2em;
 }
 
-.timeline .partscontainer .timelinepart:not(:last-of-type)::after,
-.timeline .partscontainer .timelinepart:first-of-type::before {
+app-visualisation .timeline .partscontainer .timelinepart:not(:last-of-type)::after,
+app-visualisation .timeline .partscontainer .timelinepart:first-of-type::before {
   content: "";
   position: absolute;
   top: 50%;
@@ -113,11 +113,11 @@ hoofd tijdlijn aan de bovenkant
   background-color: var(--primary-timeline);
 }
 
-.timeline .partscontainer .timelinepart:first-of-type::before {
+app-visualisation .timeline .partscontainer .timelinepart:first-of-type::before {
   left: 0;
 }
 
-.timeline .partscontainer .timelinepart button {
+app-visualisation .timeline .partscontainer .timelinepart button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -127,7 +127,7 @@ hoofd tijdlijn aan de bovenkant
   border-radius: 50%;
 }
 
-.timeline .partscontainer .timelinepart button>span {
+app-visualisation .timeline .partscontainer .timelinepart button>span {
   position: absolute;
   top: 110%;
   right: -100%;
@@ -139,7 +139,7 @@ hoofd tijdlijn aan de bovenkant
 /*------------------
 info popup panel
 ------------------*/
-.info {
+app-visualisation .info {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -154,7 +154,7 @@ info popup panel
   z-index: 5;
 }
 
-.info.active {
+app-visualisation .info.active {
   transform: translate(-50%, -50%);
   opacity: 1;
 }
@@ -164,7 +164,7 @@ info popup panel
 /*------------------
 background zooi
 ------------------*/
-.allbgs {
+app-visualisation .allbgs {
   position: absolute;
   top: 0;
   left: 0;
@@ -174,7 +174,7 @@ background zooi
   z-index: -1;
 }
 
-.allbgs .bg-container {
+app-visualisation .allbgs .bg-container {
   position: absolute;
   bottom: 0;
   height: 100%;
@@ -184,7 +184,7 @@ background zooi
   background-size: cover;
 }
 
-.allbgs .bg-container svg {
+app-visualisation .allbgs .bg-container svg {
   height: 100%;
   position: absolute;
   right: 0;

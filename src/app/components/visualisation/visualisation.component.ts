@@ -1,9 +1,10 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { UserDataService } from 'src/app/core/services/userData.service';
 import { TokenService, SpotifyAuthService } from 'src/app/core/services/spotifyAuth';
 import { TooltipService } from 'src/app/core/services/tooltip.service';
 import { ActivatedRoute } from '@angular/router';
+import { achtergrond_1950, achtergrond_1960, achtergrond_1970, achtergrond_1980, achtergrond_1990, achtergrond_2000, achtergrond_2010, achtergrond_2020 } from 'src/assets/backgrounds';
 
 import { Playlist, Track } from 'src/app/core/models';
 
@@ -12,6 +13,7 @@ let mainElement!: HTMLElement;
   selector: 'app-visualisation',
   templateUrl: './visualisation.component.html',
   styleUrls: ['./visualisation.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class VisualisationComponent implements OnInit {
 
@@ -43,6 +45,17 @@ export class VisualisationComponent implements OnInit {
     img: string,
     preview_url: string
   }[] = [];
+
+  allBackgrounds: {} = {
+    achtergrond_1950: achtergrond_1950,
+    achtergrond_1960: achtergrond_1960,
+    achtergrond_1970: achtergrond_1970,
+    achtergrond_1980: achtergrond_1980,
+    achtergrond_1990: achtergrond_1990,
+    achtergrond_2000: achtergrond_2000,
+    achtergrond_2010: achtergrond_2000,
+    achtergrond_2020: achtergrond_2000,
+  };
 
 
   constructor(
@@ -96,7 +109,8 @@ export class VisualisationComponent implements OnInit {
     for (let i = startYear; i <= endYear; i += this.yearStep) {
       this.yearRange.push(i);
     }
-    this.yearRange[this.yearRange.length - 1] = new Date().getFullYear() + 2;
+    this.yearRange[this.yearRange.length - 1] = new Date().getFullYear() + 1;
+
     this.loadScrollLogic();
   }
 
@@ -114,7 +128,7 @@ export class VisualisationComponent implements OnInit {
     this.loading = false;
     mainElement.addEventListener("wheel", (e) => {
       e.preventDefault();
-      if(this.popupOpen) return;
+      if (this.popupOpen) return;
       if (e.deltaY > 0) {
         mainElement.scrollLeft += scrollSize;
       } else {
@@ -123,14 +137,24 @@ export class VisualisationComponent implements OnInit {
     });
   }
 
+  loadBackgrounds(year: number, isLast: boolean) {
+    type key = keyof typeof this.allBackgrounds;
+    if (isLast === true || this.allBackgrounds[`achtergrond_${year as key}`] == undefined) {
+      return '';
+    } else {
+      return this.allBackgrounds[`achtergrond_${year as key}`];
+    }
+    // console.log(this.allBackgrounds[`achtergrond_${year as key}`]);
+  }
+
   selectYear(target: HTMLElement, id?: string) {
     target.classList.toggle('active');
-    if(target.classList.contains('active')) {
+    if (target.classList.contains('active')) {
       this.popupOpen = true;
     } else {
       this.popupOpen = false;
     }
-    if(id) this.selectedYear = parseInt(id.substring(4, 8));
+    if (id) this.selectedYear = parseInt(id.substring(4, 8));
   }
 
 }
