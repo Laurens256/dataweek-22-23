@@ -144,7 +144,6 @@ export class VisualisationComponent implements OnInit {
     } else {
       return this.allBackgrounds[`achtergrond_${year as key}`];
     }
-    // console.log(this.allBackgrounds[`achtergrond_${year as key}`]);
   }
 
   selectYear(target: HTMLElement, id?: string) {
@@ -155,6 +154,10 @@ export class VisualisationComponent implements OnInit {
       this.popupOpen = false;
     }
     if (id) this.selectedYear = parseInt(id.substring(4, 8));
+
+    //@ts-ignore
+    document.querySelector('#album1950').setAttribute("href", "https://i.scdn.co/image/ab67616d0000b2735614e4b167683300f70008df");
+    console.log(document.querySelector('#album1950'));
   }
 
 }
