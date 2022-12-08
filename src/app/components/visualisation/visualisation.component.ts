@@ -1,4 +1,4 @@
-import { AfterContentChecked, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterContentChecked, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { UserDataService } from 'src/app/core/services/userData.service';
 import { TokenService, SpotifyAuthService } from 'src/app/core/services/spotifyAuth';
@@ -15,7 +15,7 @@ let mainElement!: HTMLElement;
     styleUrls: ['./visualisation.component.css'],
     encapsulation: ViewEncapsulation.None
 })
-export class VisualisationComponent implements OnInit, AfterContentChecked {
+export class VisualisationComponent implements OnInit, AfterContentChecked, OnDestroy {
 
     loading: boolean = true;
     hasPlaylist: boolean = false;
@@ -57,7 +57,7 @@ export class VisualisationComponent implements OnInit, AfterContentChecked {
         achtergrond_1990: achtergrond_1990,
         achtergrond_2000: achtergrond_2000,
         achtergrond_2010: achtergrond_2010,
-        achtergrond_2020: achtergrond_2000,
+        achtergrond_2020: achtergrond_2020,
     };
 
 
@@ -95,11 +95,20 @@ export class VisualisationComponent implements OnInit, AfterContentChecked {
                 if (this.songsInRange[year]) {
                     const randomSong = this.songsInRange[year][Math.floor(Math.random() * this.songsInRange[year].length)];
                     albums[i].setAttribute('href', randomSong.img);
+                    this.randomSongsInRange[i] = randomSong;
                     if (i == albums.length - 1) {
                         this.albumSet = true;
+                        const evt = new WheelEvent('wheel', { deltaY: 0 });
+                        mainElement.dispatchEvent(evt);
                     }
                 }
             }
+        }
+    }
+
+    ngOnDestroy(): void {
+        if (this.interval) {
+            clearInterval(this.interval);
         }
     }
 
@@ -152,6 +161,7 @@ export class VisualisationComponent implements OnInit, AfterContentChecked {
         for (let i = startYear; i <= endYear; i += this.yearStep) {
             this.yearRange.push(i);
         }
+        this.prevDecennium = this.yearRange[0];
         this.yearRange[this.yearRange.length - 1] = new Date().getFullYear() + 1;
 
         this.loadScrollLogic();
@@ -181,13 +191,19 @@ export class VisualisationComponent implements OnInit, AfterContentChecked {
         });
     }
 
+    prevDecennium: number = 0;
     checkViewport() {
         //geen idee waarom maar werkt alleen als queryselector hier pas wordt aangeroepen
         const timelineParts = document.querySelectorAll('.timelinepart');
         timelineParts.forEach(part => {
             // check of element in viewport is
+            const year = parseInt(part.id.substring(5, 9));
             const rect = part.getBoundingClientRect();
-            rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth) ? this.cycleRandomSong(part.id) : null;
+            if (rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth)) {
+                clearInterval(this.interval);
+                this.prevDecennium = Math.floor(year / 10) * 10;
+                this.cycleRandomSong(part.id)
+            }
         });
     }
 
@@ -200,28 +216,34 @@ export class VisualisationComponent implements OnInit, AfterContentChecked {
         }
     }
 
-    prev: {}[] = [];
-
+    prevRandomSong: {}[] = [];
+    interval!: ReturnType<typeof setInterval>;
     cycleRandomSong(id: string) {
         const year = parseInt(id.substring(5, 9));
         const index = this.yearRange.indexOf(year);
         if (this.songsInRange[year] == null) return;
 
         // cycled door alle songs in een decennium heen, als een playlist meer dan 1 nr uit een decennium bevat wordt er een random nr gekozen wat anders is dan de vorige
-        //dit is echt de meest messy code die ik ooit heb geschreven
-        this.randomSongsInRange[index] = this.songsInRange[year][Math.floor(Math.random() * this.songsInRange[year].length)];
         const albumCover: SVGImageElement = document.querySelector(`#album${year}`)!;
-        if (albumCover != null && this.randomSongsInRange[index] != null) {
-            if (this.songsInRange[year].length > 1) {
-                while (this.prev.includes(this.randomSongsInRange[index])) {
-                    this.randomSongsInRange[index] = this.songsInRange[year][Math.floor(Math.random() * this.songsInRange[year].length)];
+
+        //heel messy maar interval doet lastig en ik heb hoofdpijn
+        this.interval = setInterval(() => {
+            if (this.prevDecennium == Math.floor(year / 10) * 10) {
+                this.randomSongsInRange[index] = this.songsInRange[year][Math.floor(Math.random() * this.songsInRange[year].length)];
+                if (albumCover != null && this.randomSongsInRange[index] != null) {
+                    if (this.songsInRange[year].length > 1) {
+                        while (this.prevRandomSong.includes(this.randomSongsInRange[index])) {
+                            this.randomSongsInRange[index] = this.songsInRange[year][Math.floor(Math.random() * this.songsInRange[year].length)];
+                        }
+                        this.prevRandomSong[index] = this.randomSongsInRange[index];
+                        albumCover.setAttribute('href', this.randomSongsInRange[index].img);
+                    }
                 }
-                this.prev[index] = this.randomSongsInRange[index];
-                albumCover.setAttribute('href', this.randomSongsInRange[index].img);
             }
-        }
+        }, 3500)
     }
 
+    // open popup met alle nrs uit gekozen jaar
     selectYear(target: HTMLElement, id?: string) {
         target.classList.toggle('active');
         if (target.classList.contains('active')) {

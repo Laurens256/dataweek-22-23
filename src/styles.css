@@ -10,19 +10,20 @@
 :root {
   /* colors */
   --bg-color: #99BAA7;
-  --primary-text-color: #000;
+  --primary-text-color: #fff;
   --secondary-text-color: #b3b3b3;
-  --primary-timeline: #252525;
+  --primary-timeline: #fff;
 
   /* decade colors */
   --year1950: #99BAA7;
-  --year1960: #D998A0;
-  --year1970: #F3A227;
+  --year1960: #D46355;
+  /* --year1970: #F3A227; */
+  --year1970: #E5781E;
   --year1980: #7D55C7;
   --year1990: #B3346C;
   --year2000: #FC8FE4;
-  --year2010: pink;
-  --year2020: pink;
+  --year2010: #0080FF;
+  --year2020: #16161A;
 
   /* constants */
   --bg-color-dark: #212121;

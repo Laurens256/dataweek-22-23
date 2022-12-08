@@ -37,8 +37,10 @@
     <div *ngFor="let range of yearRange; let i = index; last as isLast" class="bg-container" [ngStyle]="{
     'transform': (isLast) ? 'translateX(-100vw)' : 'translateX('+i*80+'vw)',
     'background-color': (isLast) ? 'none' : 'var(--year'+range+')',
-    'z-index': yearRange.length - i
-  }">
+    'z-index': yearRange.length - i}">
+
+        <section *ngIf="randomSongsInRange[i]">{{randomSongsInRange[i].name}}</section>
+
       <svg [outerHTML]="loadBackground(range, isLast) | safe: 'html'"></svg>
     </div>
   </div>
