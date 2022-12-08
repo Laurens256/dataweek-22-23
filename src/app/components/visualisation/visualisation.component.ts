@@ -44,7 +44,9 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
         name: string,
         artist: string,
         img: string,
-        preview_url: string
+        preview_url: string,
+        album: string,
+        date: string
     }[] = [];
 
     songsInRange: any = {};
@@ -144,7 +146,8 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
                 preview_url: track.preview_url,
                 year: year,
                 date: date,
-                range: yearDecennium
+                range: yearDecennium,
+                album: track.album.name,
             });
         });
     }

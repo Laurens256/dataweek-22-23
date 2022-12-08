@@ -1,3 +1,8 @@
+@font-face {
+    font-family: inter;
+    src: url(assets/Inter-VariableFont.ttf);
+}
+
 *,
 *::before,
 *::after {
@@ -9,7 +14,8 @@
 
 :root {
   /* colors */
-  --bg-color: #99BAA7;
+  --bg-color: #16161A;
+  /* --bg-color: #99BAA7; */
   --primary-text-color: #fff;
   --secondary-text-color: #c2c2c2;
   --primary-timeline: #fff;
@@ -31,7 +37,7 @@
 
 body {
   background: var(--bg-color);
-  font-family: montserrat, 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-family: inter, 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   position: relative;
 }
 

@@ -1,13 +1,13 @@
 <main>
   <!-- timeline voor muziek binnen een jaar -->
-  <section class="monthlinecontainer">
+  <!-- <section class="monthlinecontainer">
     <div class="monthline"></div>
     <ul>
       <li *ngFor="let track of playlistTracks; let i = index">
         <ng-container *ngIf="trackDates[i].year === selectedYear">{{track.name}}</ng-container>
       </li>
     </ul>
-  </section>
+  </section> -->
 
   <!-- extra info over jaar -->
   <section class="info" #infoSection>
@@ -39,14 +39,13 @@
     'background-color': (isLast) ? 'none' : 'var(--year'+range+')',
     'z-index': yearRange.length - i}">
 
-        <section *ngIf="randomSongsInRange[i]">{{randomSongsInRange[i].name}}</section>
-
       <svg [outerHTML]="loadBackground(range, isLast) | safe: 'html'"></svg>
+
+      <section class="randominfo" *ngIf="randomSongsInRange[i]">
+        <h1>{{randomSongsInRange[i].name}}</h1>
+        <p>{{randomSongsInRange[i].artist}} - {{randomSongsInRange[i].album}}</p>
+        <p>{{randomSongsInRange[i].date | date}}</p>
+    </section>
     </div>
   </div>
 </main>
-
-<!-- [ngStyle]="{'transform': (isLast) ? 'translateX(10000vw)' : 'translateX('+i*80+'vw)'}" -->
-<!-- [style.transform]="'translateX('+i*80+'vw)'" -->
-
-<!-- 'background-image': (isLast) ? 'none' : 'url(../../../assets/achtergrond_'+range+'.svg)', -->
