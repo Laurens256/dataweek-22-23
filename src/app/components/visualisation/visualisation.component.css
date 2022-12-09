@@ -203,7 +203,7 @@ app-visualisation .info ul {
     flex-direction: column;
     gap: 1em;
     overflow: auto;
-    height: 22em;
+    height: 15em;
 }
 
 app-visualisation .info ul li {
