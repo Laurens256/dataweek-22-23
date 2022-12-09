@@ -187,13 +187,11 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
             this.yearRange.push(i);
         }
         this.prevDecennium = this.yearRange[0];
-        console.log(this.yearRange);
-        console.log(this.yearRange[this.yearRange.length - 1]);
-        //geen idee wat dit doet maar het werkt denk ik
-        if (this.yearRange[this.yearRange.length - 1] == 2020) {
-            this.yearRange[this.yearRange.length] = new Date().getFullYear() + 1;
-        } else {
+        // als het laatste decennium niet het huidige decennium is, rond dan niet af naar dit jaar + 1
+        if (this.yearRange[this.yearRange.length - 1] !== Math.floor(new Date().getFullYear() / 10) * 10) {
             this.yearRange[this.yearRange.length] = this.yearRange[this.yearRange.length - 1] + 10;
+        } else {
+            this.yearRange[this.yearRange.length] = new Date().getFullYear() + 1;
         }
 
         this.loadScrollLogic();
@@ -232,6 +230,8 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
             const year = parseInt(part.id.substring(5, 9));
             const rect = part.getBoundingClientRect();
             if (rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth)) {
+                const arr = Array.from(timelineParts);
+                if(arr.indexOf(part) == arr.length - 1) return;
                 clearInterval(this.interval);
                 this.prevDecennium = Math.floor(year / 10) * 10;
                 this.cycleRandomSong(part.id);
