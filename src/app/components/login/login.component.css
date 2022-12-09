@@ -20,3 +20,31 @@ main section:first-of-type {
   color: var(--primary-text-color);
   text-align: center;
 }
+
+main section:first-of-type div {
+    display: flex;
+    flex-direction: column;
+    gap: 4em;
+    align-items: center;
+}
+
+main section:first-of-type div h1 {
+    font-size: 3em;
+}
+
+main section:first-of-type a {
+    box-sizing: content-box;
+    text-decoration: none;
+    font-size: 1.3em;
+    font-weight: 600;
+    background: var(--year1980);
+    padding: 1em 2em;
+    border-radius: 0.5em;
+    width: 9em;
+    transition: all .4s ease-in-out;
+}
+
+main section:first-of-type a:hover,
+main section:first-of-type a:focus-visible {
+    box-shadow: inset 13em 0 0 0 var(--year1990);
+}
