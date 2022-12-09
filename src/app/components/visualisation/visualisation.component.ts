@@ -119,7 +119,7 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
         const playlistLength = parseInt(id.split(';')[1]);
         const loader: HTMLElement = document.querySelector("div.loader > div")!;
         // Laat alleen laad animatie zien als playlist langer is dan 100 tracks of laden langer duurt dan 500ms
-        if(playlistLength > 100) {
+        if(playlistLength > 200) {
             loader.classList.add('loader-long');
         } else {
             setTimeout(() => {

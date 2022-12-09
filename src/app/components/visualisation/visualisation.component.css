@@ -298,7 +298,7 @@ app-visualisation .allbgs .randominfo p {
 
 
 /* loading animatie bron: https://github.com/hosseinnabi-ir/CSS-Music-Waves-Loading-Animation */
-div.loader {
+app-visualisation div.loader {
     position: fixed;
     top: 0;
     left: 0;
@@ -311,11 +311,11 @@ div.loader {
     pointer-events: none;
 }
 
-div.loader:not(.loading) {
+app-visualisation div.loader:not(.loading) {
     opacity: 0;
 }
 
-div.loader > div {
+app-visualisation div.loader > div {
     width: 15em;
     position: fixed;
     top: 50%;
@@ -328,22 +328,22 @@ div.loader > div {
     transition: opacity 0.3s ease-in-out;
 }
 
-div.loader > div.loader-long {
+app-visualisation div.loader > div.loader-long {
     opacity: 1;
 }
 
-div.loader:not(.loading) > div.loader-long {
+app-visualisation div.loader:not(.loading) > div.loader-long {
     opacity: 0;
 }
 
-div.loader > div > div {
+app-visualisation div.loader > div > div {
     width: 12px;
     border-radius: 10px;
     background: var(--primary-text-color);
     animation: loader 1.5s ease-in-out infinite;
 }
 
-div.loader h1 {
+app-visualisation div.loader h1 {
     font-size: 3em;
     position: fixed;
     top: 30%;
@@ -358,7 +358,7 @@ div.loader h1 {
     margin: 0 auto;
 }
 
-div.loader:not(.loading) h1 {
+app-visualisation div.loader:not(.loading) h1 {
     opacity: 1;
 }
 
@@ -372,33 +372,33 @@ div.loader:not(.loading) h1 {
     }
 }
 
-.loading div:nth-child(1) {
+app-visualisation .loader div:nth-child(1) {
     animation-delay: 1s;
 }
-.loading div:nth-child(2) {
+app-visualisation .loader div:nth-child(2) {
     animation-delay: .8s;
 }
-.loading div:nth-child(3) {
+app-visualisation .loader div:nth-child(3) {
     animation-delay: .6s;
 }
-.loading div:nth-child(4) {
+app-visualisation .loader div:nth-child(4) {
     animation-delay: .4s;
 }
-.loading div:nth-child(5) {
+app-visualisation .loader div:nth-child(5) {
     animation-delay: .2s;
 }
-.loading div:nth-child(6) {
+app-visualisation .loader div:nth-child(6) {
     animation-delay: .2s;
 }
-.loading div:nth-child(7) {
+app-visualisation .loader div:nth-child(7) {
     animation-delay: .4s;
 }
-.loading div:nth-child(8) {
+app-visualisation .loader div:nth-child(8) {
     animation-delay: .6s;
 }
-.loading div:nth-child(9) {
+app-visualisation .loader div:nth-child(9) {
     animation-delay: .8s;
 }
-.loading div:nth-child(10) {
+app-visualisation .loader div:nth-child(10) {
     animation-delay: 1s;
 }
