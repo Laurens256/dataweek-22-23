@@ -11,16 +11,28 @@
 
     <!-- extra info over jaar -->
     <section class="info" #infoSection>
-        <h2>{{selectedYear}}</h2>
-        <p>Deze playlist bevat {{trackDates | yearTracksAmount: selectedYear}} nummer(s) uit {{selectedYear}}.</p>
+        <button (click)="this.selectYear(infoSection)">X</button>
+        <ng-container *ngIf="songsPerYear[selectedYear]">
+            <div>
+                <h2>{{selectedYear}}</h2>
+                <p>Deze playlist bevat {{songsPerYear[selectedYear].length}} nummer<ng-container
+                        *ngIf="songsPerYear[selectedYear].length > 1">s</ng-container> uit {{selectedYear}}</p>
+            </div>
+            <ul>
+                <li *ngFor="let song of songsPerYear[selectedYear]">
+                    <img src="{{song.img}}" alt="album cover {{song.album}}" loading="lazy">
+                    {{song.name}} - {{song.artist}}
+                </li>
+            </ul>
+        </ng-container>
     </section>
+    <div class="infobg" (click)="this.selectYear(infoSection)"></div>
 
     <!-- main timeline met jaartallen, vraag met niet wat er allemaal gebeurt -->
     <section class="timeline" *ngIf="!loading">
         <div class="partscontainer">
             <div class="timelinepart" *ngFor="let range of yearRange; let i = index; last as isLast"
                 [attr.data-index]="i" id="range{{range}}">
-                <!-- {{i===0 ? range : range - 1}} -->
                 <span>{{range}}<ng-container *ngIf="!isLast">s</ng-container></span>
                 <ng-container *ngFor="let year of individualYears; let j = index">
                     <button *ngIf="year >= range && year < range+yearStep" #yearSelect

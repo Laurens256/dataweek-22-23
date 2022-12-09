@@ -98,7 +98,7 @@ app-visualisation .timeline .partscontainer .timelinepart>span {
   font-size: 1.2em;
   font-weight: 500;
   color: var(--primary-timeline);
-  text-shadow: 0 0 1px black;
+  text-shadow: 1px 1px 0 black;
 }
 
 app-visualisation .timeline .partscontainer .timelinepart:last-of-type>span {
@@ -137,7 +137,7 @@ app-visualisation .timeline .partscontainer .timelinepart button>span {
   right: -100%;
   transform: rotate(45deg);
   font-size: 1em;
-  text-shadow: 0 1px black;
+  text-shadow: 1px 1px 0 black;
 }
 
 
@@ -148,20 +148,91 @@ app-visualisation .info {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-200%, -200%);
+  transform: translate(-50%, 200%);
   max-width: 90%;
-  width: 30em;
+  width: 37em;
   max-height: 80%;
   height: 40em;
-  background-color: red;
+  background-color: var(--year2020);
   opacity: 0;
   transition: all 0.3s ease-in-out, visibility 0.3s ease-in-out;
   z-index: 5;
+  padding: 2em;
 }
 
 app-visualisation .info.active {
   transform: translate(-50%, -50%);
   opacity: 1;
+}
+
+app-visualisation .info button {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    font-weight: bold;
+    font-size: 30px;
+    height: 2em;
+    width: 2em;
+    border: solid 2px transparent;
+    transition: all .2s ease-in-out;
+}
+
+app-visualisation .info button:hover,
+app-visualisation .info button:focus-visible {
+    border-color: #fff;
+}
+
+app-visualisation .info div {
+    text-align: center;
+    margin-top: 4em;
+    margin-bottom: 2.5em;
+}
+
+app-visualisation .info div h2 {
+    font-weight: 700;
+    font-size: 60px;
+}
+
+app-visualisation .info div p {
+    font-size: 22px;
+    /* text-transform: uppercase; */
+    margin-top: .3em;
+}
+
+app-visualisation .info ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    overflow: auto;
+    height: 22em;
+}
+
+app-visualisation .info ul li {
+    display: flex;
+    height: 3.7em;
+    align-items: center;
+    gap: 1em;
+}
+
+app-visualisation .info ul li img {
+    height: 100%;
+}
+
+app-visualisation .info + div.infobg {
+    position: fixed;
+    background: #16161A;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+app-visualisation .info.active + div.infobg {
+    opacity: .75;
+    pointer-events: all;
 }
 
 
@@ -209,6 +280,7 @@ app-visualisation .allbgs .randominfo h1 {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    text-shadow: 1px 1px 0 black;
 }
 
 app-visualisation .allbgs .randominfo p {
@@ -217,4 +289,5 @@ app-visualisation .allbgs .randominfo p {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    text-shadow: 1px 1px 0 black;
 }

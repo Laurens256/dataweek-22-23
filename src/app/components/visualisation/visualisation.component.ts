@@ -50,6 +50,8 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
         date: string
     }[] = [];
 
+    songsPerYear: any = {};
+
     songsInRange: any = {};
 
     allBackgrounds: {} = {
@@ -142,6 +144,9 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
             if (this.songsInRange[yearDecennium] == null) {
                 this.songsInRange[yearDecennium] = [];
             }
+            if (this.songsPerYear[year] == null) {
+                this.songsPerYear[year] = [];
+            }
             this.songsInRange[yearDecennium].push({
                 name: track.name,
                 artist: track.artists[0].name,
@@ -152,6 +157,18 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
                 range: yearDecennium,
                 album: track.album.name,
             });
+
+            this.songsPerYear[year].push({
+                name: track.name,
+                artist: track.artists[0].name,
+                img: track.album.images[0].url,
+                preview_url: track.preview_url,
+                year: year,
+                date: date,
+                range: yearDecennium,
+                album: track.album.name,
+            });
+
             this.randomSongsPreviewObj[yearDecennium] = this.songsInRange[yearDecennium].filter((track: any) => track.preview_url != null);
         });
     }
@@ -163,13 +180,19 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
         });
 
         const startYear = Math.floor(this.trackDates[0].year / 10) * 10;
+        // const endYear = Math.ceil(new Date().getFullYear() / 10) * 10;
+
         const endYear = Math.ceil(this.trackDates[this.trackDates.length - 1].year / 10) * 10;
 
         for (let i = startYear; i <= endYear; i += this.yearStep) {
             this.yearRange.push(i);
         }
+        // console.log(i);
         this.prevDecennium = this.yearRange[0];
-        this.yearRange[this.yearRange.length - 1] = new Date().getFullYear() + 1;
+        if(endYear == Math.ceil(new Date().getFullYear() / 10) * 10) {
+            this.yearRange[this.yearRange.length - 1] = new Date().getFullYear() + 1;
+        }
+        console.log(this.yearRange);
 
         this.loadScrollLogic();
     }
@@ -186,7 +209,9 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
         const scrollSize = mainElement.clientWidth;
         this.loading = false;
         mainElement.addEventListener("wheel", (e) => {
-            e.preventDefault();
+            if(!this.popupOpen) {
+                e.preventDefault();
+            }
             if (this.popupOpen) return;
             if (e.deltaY > 0) {
                 mainElement.scrollLeft += scrollSize;
@@ -246,19 +271,22 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
                     }
                 }
             }
-        }, 3000)
+        }, 3500)
     }
 
     randomSongsPreviewObj: any = {};
     randomSongPreview: string = '';
     randomSongCurrentRange: number = 0;
     playRandomSongInRange(range: number | string, prev?: boolean) {
+        console.log(range);
         if(typeof range === 'string') range = parseInt(range);
         const audio: HTMLAudioElement = document.querySelector('audio')!;
         this.randomSongCurrentRange = range;
 
-        if(audio.id == range.toString() && !prev) {
+        if(audio.id == range.toString() || prev == true) {
             return;
+        } else if(this.randomSongsPreviewObj[range] == null) {
+            audio.pause();
         } else {
             //als decennium meer dan 1 nr heeft wordt altijd een ander nummer gekozen dan de vorige
             let randomSong = this.randomSongsPreviewObj[range][Math.floor(Math.random() * this.randomSongsPreviewObj[range].length)].preview_url;
@@ -273,6 +301,7 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
         }
     }
 
+    currYear: string = '';
     // open popup met alle nrs uit gekozen jaar
     selectYear(target: HTMLElement, id?: string) {
         target.classList.toggle('active');
