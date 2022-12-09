@@ -2,7 +2,6 @@ import { AfterContentChecked, Component, OnDestroy, OnInit, ViewEncapsulation } 
 
 import { UserDataService } from 'src/app/core/services/userData.service';
 import { TokenService, SpotifyAuthService } from 'src/app/core/services/spotifyAuth';
-import { TooltipService } from 'src/app/core/services/tooltip.service';
 import { ActivatedRoute } from '@angular/router';
 import { achtergrond_1950, achtergrond_1960, achtergrond_1970, achtergrond_1980, achtergrond_1990, achtergrond_2000, achtergrond_2010, achtergrond_2020 } from 'src/assets/backgrounds';
 

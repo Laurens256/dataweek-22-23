@@ -20,6 +20,9 @@
   --secondary-text-color: #c2c2c2;
   --primary-timeline: #fff;
 
+  --playlist-bg: rgba(255, 255, 255, 0.1);
+  --playlist-bg-hover: rgba(255, 255, 255, 0.2);
+
   /* decade colors */
   --year1950: #99BAA7;
   --year1960: #D46355;

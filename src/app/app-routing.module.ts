@@ -10,15 +10,15 @@ import { AuthGuard } from './core/services/spotifyAuth/auth.guard';
 
 const routes: Routes = [
   //login
-  { path: 'login', component: LoginComponent, title: 'Naam | Login' },
-  { path: 'home', component: UserPlaylistsComponent, title: 'Naam | Playlists' },
-  { path: 'visualize', component: VisualisationComponent, title: 'Naam | Visualize' },
+  { path: 'login', component: LoginComponent, title: 'Dataweek | Login' },
+  { path: 'home', component: UserPlaylistsComponent, title: 'Dataweek | Playlists' },
+  { path: 'visualize', component: VisualisationComponent, title: 'Dataweek | Visualisatie' },
 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   //404 pagina of iets dergelijks kan hier in de plaats worden gezet
   // { path: '**', redirectTo: 'data' },
 
-  { path: 'authorizing', component: AuthorizingComponent, canActivate: [AuthGuard] },
+  { path: 'authorizing', component: AuthorizingComponent, canActivate: [AuthGuard], title: 'Dataweek | Autoriseren...' },
 ];
 
 @NgModule({

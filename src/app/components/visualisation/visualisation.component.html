@@ -61,3 +61,16 @@
 <audio #audio preload="auto" id="{{randomSongCurrentRange}}" (ended)="playRandomSongInRange(audio.id, true)">
     <source *ngIf="randomSongPreview !== ''" src="{{randomSongPreview}}" type="audio/mp3">
 </audio>
+
+<div *ngIf="loading" class="loading">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>

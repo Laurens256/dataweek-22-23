@@ -2,14 +2,14 @@
 container
 ------------------*/
 app-visualisation main {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  overflow: hidden;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  transition: background 0.3s ease-in-out;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    overflow: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    transition: background 0.3s ease-in-out;
 }
 
 
@@ -17,35 +17,35 @@ app-visualisation main {
 hoofd tijdlijn aan de bovenkant
 ------------------*/
 app-visualisation .timeline {
-  box-sizing: content-box;
-  position: absolute;
-  top: 2em;
-  left: 0;
-  width: 100%;
-  height: 2em;
-  display: flex;
-  overflow: visible;
-  padding: 1em 0;
+    box-sizing: content-box;
+    position: absolute;
+    top: 2em;
+    left: 0;
+    width: 100%;
+    height: 2em;
+    display: flex;
+    overflow: visible;
+    padding: 1em 0;
 }
 
 app-visualisation .timeline .partscontainer {
-  width: fit-content;
-  height: 80%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 10vw;
+    width: fit-content;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10vw;
 }
 
 app-visualisation .timeline .partscontainer .timelinepart {
-  scroll-snap-align: center;
-  position: relative;
-  width: 80vw;
-  height: 0;
-  border-top: solid 2px var(--primary-timeline);
-  border-bottom: solid 2px var(--primary-timeline);
-  margin: 0 auto;
-  overflow: visible;
+    scroll-snap-align: center;
+    position: relative;
+    width: 80vw;
+    height: 0;
+    border-top: solid 2px var(--primary-timeline);
+    border-bottom: solid 2px var(--primary-timeline);
+    margin: 0 auto;
+    overflow: visible;
 }
 
 app-visualisation .timeline .partscontainer .timelinepart.active {
@@ -53,56 +53,56 @@ app-visualisation .timeline .partscontainer .timelinepart.active {
 }
 
 app-visualisation .timeline .partscontainer .timelinepart:last-of-type {
-  width: fit-content;
+    width: fit-content;
 }
 
 app-visualisation .timeline .partscontainer .timelinepart>span {
-  position: absolute;
-  top: -2em;
-  left: -1.3em;
-  font-size: 1.2em;
-  font-weight: 500;
-  color: var(--primary-timeline);
-  text-shadow: 1px 1px 0 black;
+    position: absolute;
+    top: -2em;
+    left: -1.3em;
+    font-size: 1.2em;
+    font-weight: 500;
+    color: var(--primary-timeline);
+    text-shadow: 1px 1px 0 black;
 }
 
 app-visualisation .timeline .partscontainer .timelinepart:last-of-type>span {
-  left: -1.2em;
+    left: -1.2em;
 }
 
 app-visualisation .timeline .partscontainer .timelinepart:not(:last-of-type)::after,
 app-visualisation .timeline .partscontainer .timelinepart:first-of-type::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  width: 4px;
-  height: 1.5em;
-  background-color: var(--primary-timeline);
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 1.5em;
+    background-color: var(--primary-timeline);
 }
 
 app-visualisation .timeline .partscontainer .timelinepart:first-of-type::before {
-  left: 0;
+    left: 0;
 }
 
 app-visualisation .timeline .partscontainer .timelinepart button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--primary-timeline);
-  height: 25px;
-  width: 25px;
-  border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary-timeline);
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
 }
 
 app-visualisation .timeline .partscontainer .timelinepart button>span {
-  position: absolute;
-  top: 110%;
-  right: -100%;
-  transform: rotate(45deg);
-  font-size: 1em;
-  text-shadow: 1px 1px 0 black;
+    position: absolute;
+    top: 110%;
+    right: -100%;
+    transform: rotate(45deg);
+    font-size: 1em;
+    text-shadow: 1px 1px 0 black;
 }
 
 
@@ -110,24 +110,24 @@ app-visualisation .timeline .partscontainer .timelinepart button>span {
 info popup panel
 ------------------*/
 app-visualisation .info {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 200%);
-  max-width: 90%;
-  width: 37em;
-  max-height: 80%;
-  height: 40em;
-  background-color: var(--year2020);
-  opacity: 0;
-  transition: all 0.3s ease-in-out, visibility 0.3s ease-in-out;
-  z-index: 5;
-  padding: 2em;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 200%);
+    max-width: 90%;
+    width: 37em;
+    max-height: 80%;
+    height: 40em;
+    background-color: var(--year2020);
+    opacity: 0;
+    transition: all 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    z-index: 5;
+    padding: 2em;
 }
 
 app-visualisation .info.active {
-  transform: translate(-50%, -50%);
-  opacity: 1;
+    transform: translate(-50%, -50%);
+    opacity: 1;
 }
 
 app-visualisation .info button {
@@ -147,18 +147,18 @@ app-visualisation .info button:focus-visible {
     border-color: #fff;
 }
 
-app-visualisation .info > div {
+app-visualisation .info>div {
     text-align: center;
     margin-top: 4em;
     margin-bottom: 2.5em;
 }
 
-app-visualisation .info > div h2 {
+app-visualisation .info>div h2 {
     font-weight: 700;
     font-size: 60px;
 }
 
-app-visualisation .info > div p {
+app-visualisation .info>div p {
     font-size: 22px;
     /* text-transform: uppercase; */
     margin-top: .3em;
@@ -190,7 +190,7 @@ app-visualisation .info ul li div {
     justify-content: center;
 }
 
-app-visualisation .info + div.infobg {
+app-visualisation .info+div.infobg {
     position: fixed;
     background: #16161A;
     opacity: 0;
@@ -202,7 +202,7 @@ app-visualisation .info + div.infobg {
     pointer-events: none;
 }
 
-app-visualisation .info.active + div.infobg {
+app-visualisation .info.active+div.infobg {
     opacity: .75;
     pointer-events: all;
 }
@@ -213,29 +213,29 @@ app-visualisation .info.active + div.infobg {
 background zooi
 ------------------*/
 app-visualisation .allbgs {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: fit-content;
-  height: 100%;
-  pointer-events: none;
-  z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: fit-content;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
 }
 
 app-visualisation .allbgs .bg-container {
-  position: absolute;
-  bottom: 0;
-  height: 100%;
-  width: 80vw;
-  background-repeat: repeat-x;
-  background-position: bottom right;
-  background-size: cover;
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+    width: 80vw;
+    background-repeat: repeat-x;
+    background-position: bottom right;
+    background-size: cover;
 }
 
 app-visualisation .allbgs .bg-container svg {
-  height: 100%;
-  position: absolute;
-  right: 0;
+    height: 100%;
+    position: absolute;
+    right: 0;
 }
 
 app-visualisation .allbgs .randominfo {
@@ -262,4 +262,66 @@ app-visualisation .allbgs .randominfo p {
     text-overflow: ellipsis;
     white-space: nowrap;
     text-shadow: 1px 1px 0 black;
+}
+
+
+
+/* loading animatie bron: https://github.com/hosseinnabi-ir/CSS-Music-Waves-Loading-Animation */
+.loading {
+    width: 15em;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.loading div {
+    width: 12px;
+    border-radius: 10px;
+    background: var(--primary-text-color);
+    animation: loader 1.5s ease-in-out infinite;
+}
+
+@keyframes loader {
+    0%,
+    100% {
+        height: 2px;
+    }
+    50% {
+        height: 80px;
+    }
+}
+
+.loading div:nth-child(1) {
+    animation-delay: 1s;
+}
+.loading div:nth-child(2) {
+    animation-delay: .8s;
+}
+.loading div:nth-child(3) {
+    animation-delay: .6s;
+}
+.loading div:nth-child(4) {
+    animation-delay: .4s;
+}
+.loading div:nth-child(5) {
+    animation-delay: .2s;
+}
+.loading div:nth-child(6) {
+    animation-delay: .2s;
+}
+.loading div:nth-child(7) {
+    animation-delay: .4s;
+}
+.loading div:nth-child(8) {
+    animation-delay: .6s;
+}
+.loading div:nth-child(9) {
+    animation-delay: .8s;
+}
+.loading div:nth-child(10) {
+    animation-delay: 1s;
 }
