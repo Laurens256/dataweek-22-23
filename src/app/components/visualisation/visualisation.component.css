@@ -13,41 +13,6 @@ app-visualisation main {
 }
 
 
-
-/*------------------
-maand tijdlijn aan de zijkant
-------------------*/
-/* app-visualisation .monthlinecontainer {
-  position: fixed;
-  height: 60%;
-  max-width: 80vw;
-  min-width: 30em;
-  background: green;
-  top: 10vh;
-  left: 10vw;
-  display: flex;
-  display: none;
-}
-
-app-visualisation .monthlinecontainer .monthline {
-  width: 2em;
-  height: 100%;
-  background-color: blue;
-}
-
-app-visualisation .monthlinecontainer ul {
-  position: absolute;
-  top: 0;
-  left: 2em;
-  width: 100%;
-  height: 100%;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-} */
-
-
-
 /*------------------
 hoofd tijdlijn aan de bovenkant
 ------------------*/
@@ -182,18 +147,18 @@ app-visualisation .info button:focus-visible {
     border-color: #fff;
 }
 
-app-visualisation .info div {
+app-visualisation .info > div {
     text-align: center;
     margin-top: 4em;
     margin-bottom: 2.5em;
 }
 
-app-visualisation .info div h2 {
+app-visualisation .info > div h2 {
     font-weight: 700;
     font-size: 60px;
 }
 
-app-visualisation .info div p {
+app-visualisation .info > div p {
     font-size: 22px;
     /* text-transform: uppercase; */
     margin-top: .3em;
@@ -216,6 +181,13 @@ app-visualisation .info ul li {
 
 app-visualisation .info ul li img {
     height: 100%;
+}
+
+app-visualisation .info ul li div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 app-visualisation .info + div.infobg {

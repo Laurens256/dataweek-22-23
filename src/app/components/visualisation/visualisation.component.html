@@ -1,14 +1,4 @@
 <main>
-    <!-- timeline voor muziek binnen een jaar -->
-    <!-- <section class="monthlinecontainer">
-    <div class="monthline"></div>
-    <ul>
-      <li *ngFor="let track of playlistTracks; let i = index">
-        <ng-container *ngIf="trackDates[i].year === selectedYear">{{track.name}}</ng-container>
-      </li>
-    </ul>
-  </section> -->
-
     <!-- extra info over jaar -->
     <section class="info" #infoSection>
         <button (click)="this.selectYear(infoSection)">X</button>
@@ -21,7 +11,10 @@
             <ul>
                 <li *ngFor="let song of songsPerYear[selectedYear]">
                     <img src="{{song.img}}" alt="album cover {{song.album}}" loading="lazy">
-                    {{song.name}} - {{song.artist}}
+                    <div>
+                        <p>{{song.name}} - {{song.artist}}</p>
+                        <p>{{song.date | date}}</p>
+                    </div>
                 </li>
             </ul>
         </ng-container>
@@ -34,10 +27,11 @@
             <div class="timelinepart" *ngFor="let range of yearRange; let i = index; last as isLast"
                 [attr.data-index]="i" id="range{{range}}">
                 <span>{{range}}<ng-container *ngIf="!isLast">s</ng-container></span>
-                <ng-container *ngFor="let year of individualYears; let j = index">
+                <ng-container *ngFor="let year of individualYears">
                     <button *ngIf="year >= range && year < range+yearStep" #yearSelect
                         (click)="selectYear(infoSection, yearSelect.id)"
-                        [style.left]="(year - range-yearStep + 10)*10+'%'" id="year{{year}}" class="yearbutton">
+                        [style.left]="yearRange[yearRange.length - 2] == range && rounded ? (year - range)*10*multiply+'%' : (year - range)*10+'%'"
+                        id="year{{year}}" class="yearbutton">
                         <span>{{year}}</span>
                     </button>
                 </ng-container>

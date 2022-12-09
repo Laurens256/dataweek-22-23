@@ -173,6 +173,8 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
         });
     }
 
+    rounded: boolean = false;
+    multiply: number = 1;
     calcTimelineSize() {
         this.playlistTracks.forEach(track => {
             const date = track.album.release_date;
@@ -191,6 +193,8 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
         if (this.yearRange[this.yearRange.length - 1] !== Math.floor(new Date().getFullYear() / 10) * 10) {
             this.yearRange[this.yearRange.length] = this.yearRange[this.yearRange.length - 1] + 10;
         } else {
+            this.rounded = true;
+            this.multiply = (new Date().getFullYear() + 1) % 10;
             this.yearRange[this.yearRange.length] = new Date().getFullYear() + 1;
         }
 
@@ -231,7 +235,7 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
             const rect = part.getBoundingClientRect();
             if (rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth)) {
                 const arr = Array.from(timelineParts);
-                if(arr.indexOf(part) == arr.length - 1) return;
+                if (arr.indexOf(part) == arr.length - 1) return;
                 clearInterval(this.interval);
                 this.prevDecennium = Math.floor(year / 10) * 10;
                 this.cycleRandomSong(part.id);
@@ -285,7 +289,7 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
         const audio: HTMLAudioElement = document.querySelector('audio')!;
         this.randomSongCurrentRange = range;
 
-        if (audio.id == range.toString() || prev == true) {
+        if (audio.id == range.toString() && !prev) {
             return;
         } else if (this.randomSongsPreviewObj[range] == null) {
             audio.pause();
@@ -306,13 +310,18 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
     currYear: string = '';
     // open popup met alle nrs uit gekozen jaar
     selectYear(target: HTMLElement, id?: string) {
+        if (id != this.currYear && id != undefined) {
+            this.selectedYear = parseInt(id.substring(4, 8))
+            this.currYear = id;
+            target.classList.add('active');
+            return;
+        }
         target.classList.toggle('active');
         if (target.classList.contains('active')) {
             this.popupOpen = true;
         } else {
             this.popupOpen = false;
         }
-        if (id) this.selectedYear = parseInt(id.substring(4, 8));
     }
 
 }
