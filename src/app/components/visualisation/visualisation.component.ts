@@ -126,7 +126,7 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
         this.playlistTracks = data.allTracks;
         this.playlistTrackIds = data.allTrackIds;
 
-        console.log(this.playlistTracks)
+        // console.log(this.playlistTracks)
 
         // this.getPlaylistColor(this.playlist.images[0].url);
         this.generateTracksInRange();
@@ -208,27 +208,34 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
 
     loadScrollLogic(): void {
         mainElement = document.querySelector("main")!;
-        const scrollSize = mainElement.clientWidth;
         this.loading = false;
-        mainElement.addEventListener("wheel", (e) => {
-            console.log('ja');
-            if (!this.popupOpen) {
-                e.preventDefault();
-            }
-            if (this.popupOpen) return;
-            if (e.deltaY > 0) {
-                mainElement.scrollLeft += scrollSize;
-            } else {
-                mainElement.scrollLeft -= scrollSize;
-            }
-            // timeout zodat functie wordt aangeroepen zodra scrollen klaar is
-            setTimeout(() => this.checkViewport(), 500);
-        });
-        //timeout zodat na laad animatie van timeline meteen een liedje wordt gespeeld
+        mainElement.scrollLeft = 0;
+
+        //timeout zodat event listener pas werkt na laad animatie
         setTimeout(() => {
+            mainElement.addEventListener("wheel", (e) => {
+                const scrollSize = mainElement.clientWidth;
+                if (!this.popupOpen) {
+                    e.preventDefault();
+                }
+                if (this.popupOpen) return;
+                if (e.deltaY > 0) {
+                    mainElement.scrollLeft += scrollSize;
+                } else {
+                    mainElement.scrollLeft -= scrollSize;
+                }
+                // timeout zodat functie wordt aangeroepen zodra scrollen klaar is
+                setTimeout(() => this.checkViewport(), 500);
+            });
+
             const evt = new WheelEvent('wheel', { deltaY: 0 });
             mainElement.dispatchEvent(evt);
         }, 3500);
+
+        // setTimeout(() => {
+        //     const evt = new WheelEvent('wheel', { deltaY: 0 });
+        //     mainElement.dispatchEvent(evt);
+        // }, 3500);
     }
 
     prevDecennium: number = 0;
@@ -288,7 +295,6 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
     randomSongPreview: string = '';
     randomSongCurrentRange: number = 0;
     playRandomSongInRange(range: number | string, prev?: boolean) {
-        // console.log(range);
         if (typeof range === 'string') range = parseInt(range);
         const audio: HTMLAudioElement = document.querySelector('audio')!;
         this.randomSongCurrentRange = range;
