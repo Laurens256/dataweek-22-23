@@ -258,13 +258,22 @@ app-visualisation .allbgs .bg-container svg {
     height: 100%;
     position: absolute;
     right: 0;
+    bottom: 0;
+}
+
+/* media query for tablets */
+@media screen and (max-width: 1024px) {
+    app-visualisation .allbgs .bg-container svg {
+        height: 70%;
+    }
 }
 
 app-visualisation .allbgs .randominfo {
     position: absolute;
     left: 10%;
     top: 10em;
-    max-width: 40em;
+    max-width: 90%;
+    width: 40em;
     overflow: hidden;
 }
 
