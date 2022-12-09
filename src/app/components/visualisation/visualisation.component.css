@@ -12,6 +12,18 @@ app-visualisation main {
     transition: background 0.3s ease-in-out;
 }
 
+app-visualisation main .backbutton {
+  box-sizing: content-box;
+  position: fixed;
+  left: 2em;
+  bottom: 1em;
+  background: var(--year2020);
+  border: solid 2px var(--primary-text-color);
+  border-radius: 7px;
+  padding: .8em 1.5em;
+  font-size: 1.1em;
+}
+
 
 /*------------------
 hoofd tijdlijn aan de bovenkant

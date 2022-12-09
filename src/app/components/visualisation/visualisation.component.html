@@ -54,6 +54,7 @@
             </section>
         </div>
     </div>
+    <button class="backbutton" (click)="this.backPage()">Back</button>
 </main>
 
 <audio #audio preload="auto" id="{{randomSongCurrentRange}}" (ended)="playRandomSongInRange(audio.id, true)">
