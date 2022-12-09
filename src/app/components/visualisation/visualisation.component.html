@@ -30,7 +30,7 @@
                 <ng-container *ngFor="let year of individualYears">
                     <button *ngIf="year >= range && year < range+yearStep" #yearSelect
                         (click)="selectYear(infoSection, yearSelect.id)"
-                        [style.left]="yearRange[yearRange.length - 2] == range && rounded ? (year - range)*10*multiply+'%' : (year - range)*10+'%'"
+                        [style.left]="yearRange[yearRange.length - 2] == range? (year - range)*10*multiply+'%' : (year - range)*10+'%'"
                         id="year{{year}}" class="yearbutton">
                         <span>{{year}}</span>
                     </button>

@@ -172,7 +172,6 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
         });
     }
 
-    rounded: boolean = false;
     multiply: number = 1;
     calcTimelineSize() {
         this.playlistTracks.forEach(track => {
@@ -181,7 +180,6 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
         });
 
         const startYear = Math.floor(this.trackDates[0].year / 10) * 10;
-        // const endYear = Math.ceil(new Date().getFullYear() / 10) * 10;
         const endYear = Math.ceil(this.trackDates[this.trackDates.length - 1].year / 10) * 10;
 
         for (let i = startYear; i + this.yearStep <= endYear; i += this.yearStep) {
@@ -192,8 +190,9 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
         if (this.yearRange[this.yearRange.length - 1] !== Math.floor(new Date().getFullYear() / 10) * 10) {
             this.yearRange[this.yearRange.length] = this.yearRange[this.yearRange.length - 1] + 10;
         } else {
-            this.rounded = true;
-            this.multiply = (new Date().getFullYear() + 1) % 10;
+            // berekent percentage van het laatste vak van de tijdlijn als deze eindigt in deze eeuw
+            // krijgt het laatste nummer van het jaar (bv. 2023 -> 3) en deelt door 10 voor multiplier
+            this.multiply = 10 / Number(String(new Date().getFullYear() + 1).slice(-1));
             this.yearRange[this.yearRange.length] = new Date().getFullYear() + 1;
         }
 
@@ -313,6 +312,7 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
             this.selectedYear = parseInt(id.substring(4, 8))
             this.currYear = id;
             target.classList.add('active');
+            this.popupOpen = true;
             return;
         }
         target.classList.toggle('active');

@@ -123,6 +123,7 @@ app-visualisation .info {
     transition: all 0.3s ease-in-out, visibility 0.3s ease-in-out;
     z-index: 5;
     padding: 2em;
+    border: solid 2px var(--primary-timeline);
 }
 
 app-visualisation .info.active {
