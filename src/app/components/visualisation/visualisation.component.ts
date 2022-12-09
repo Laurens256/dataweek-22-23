@@ -181,18 +181,20 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
 
         const startYear = Math.floor(this.trackDates[0].year / 10) * 10;
         // const endYear = Math.ceil(new Date().getFullYear() / 10) * 10;
-
         const endYear = Math.ceil(this.trackDates[this.trackDates.length - 1].year / 10) * 10;
 
-        for (let i = startYear; i <= endYear; i += this.yearStep) {
+        for (let i = startYear; i + this.yearStep <= endYear; i += this.yearStep) {
             this.yearRange.push(i);
         }
-        // console.log(i);
         this.prevDecennium = this.yearRange[0];
-        if(endYear == Math.ceil(new Date().getFullYear() / 10) * 10) {
-            this.yearRange[this.yearRange.length - 1] = new Date().getFullYear() + 1;
-        }
         console.log(this.yearRange);
+        console.log(this.yearRange[this.yearRange.length - 1]);
+        //geen idee wat dit doet maar het werkt denk ik
+        if (this.yearRange[this.yearRange.length - 1] == 2020) {
+            this.yearRange[this.yearRange.length] = new Date().getFullYear() + 1;
+        } else {
+            this.yearRange[this.yearRange.length] = this.yearRange[this.yearRange.length - 1] + 10;
+        }
 
         this.loadScrollLogic();
     }
@@ -209,7 +211,7 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
         const scrollSize = mainElement.clientWidth;
         this.loading = false;
         mainElement.addEventListener("wheel", (e) => {
-            if(!this.popupOpen) {
+            if (!this.popupOpen) {
                 e.preventDefault();
             }
             if (this.popupOpen) return;
@@ -278,19 +280,19 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
     randomSongPreview: string = '';
     randomSongCurrentRange: number = 0;
     playRandomSongInRange(range: number | string, prev?: boolean) {
-        console.log(range);
-        if(typeof range === 'string') range = parseInt(range);
+        // console.log(range);
+        if (typeof range === 'string') range = parseInt(range);
         const audio: HTMLAudioElement = document.querySelector('audio')!;
         this.randomSongCurrentRange = range;
 
-        if(audio.id == range.toString() || prev == true) {
+        if (audio.id == range.toString() || prev == true) {
             return;
-        } else if(this.randomSongsPreviewObj[range] == null) {
+        } else if (this.randomSongsPreviewObj[range] == null) {
             audio.pause();
         } else {
             //als decennium meer dan 1 nr heeft wordt altijd een ander nummer gekozen dan de vorige
             let randomSong = this.randomSongsPreviewObj[range][Math.floor(Math.random() * this.randomSongsPreviewObj[range].length)].preview_url;
-            if(this.songsInRange[range].length > 1) {
+            if (this.songsInRange[range].length > 1) {
                 while (randomSong == this.randomSongPreview) {
                     randomSong = this.songsInRange[range][Math.floor(Math.random() * this.randomSongsPreviewObj[range].length)].preview_url;
                 }
