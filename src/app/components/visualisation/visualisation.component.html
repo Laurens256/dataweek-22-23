@@ -22,8 +22,8 @@
     <div class="infobg" (click)="this.selectYear(infoSection)"></div>
 
     <!-- main timeline met jaartallen, vraag met niet wat er allemaal gebeurt -->
-    <section class="timeline" *ngIf="!loading">
-        <div class="partscontainer">
+    <section class="timeline" [class.loading]="loading">
+        <div *ngIf="!loading" class="partscontainer">
             <div class="timelinepart" *ngFor="let range of yearRange; let i = index; last as isLast"
                 [attr.data-index]="i" id="range{{range}}">
                 <span>{{range}}<ng-container *ngIf="!isLast">s</ng-container></span>
@@ -56,8 +56,6 @@
     </div>
 </main>
 
-<!-- (ended)="chooseRandomTrack(true)" -->
-
 <audio #audio preload="auto" id="{{randomSongCurrentRange}}" (ended)="playRandomSongInRange(audio.id, true)">
     <source *ngIf="randomSongPreview !== ''" src="{{randomSongPreview}}" type="audio/mp3">
 </audio>
@@ -73,4 +71,4 @@
     <div></div>
     <div></div>
     <div></div>
-  </div>
+</div>

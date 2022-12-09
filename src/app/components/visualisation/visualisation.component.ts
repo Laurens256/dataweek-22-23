@@ -102,8 +102,8 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
                     this.randomSongsInRange[i] = randomSong;
                     if (i == albums.length - 1) {
                         this.albumSet = true;
-                        const evt = new WheelEvent('wheel', { deltaY: 0 });
-                        mainElement.dispatchEvent(evt);
+                        // const evt = new WheelEvent('wheel', { deltaY: 0 });
+                        // mainElement.dispatchEvent(evt);
 
                         timelineParts = document.querySelectorAll('.timelinepart');
                     }
@@ -211,6 +211,7 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
         const scrollSize = mainElement.clientWidth;
         this.loading = false;
         mainElement.addEventListener("wheel", (e) => {
+            console.log('ja');
             if (!this.popupOpen) {
                 e.preventDefault();
             }
@@ -223,6 +224,11 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
             // timeout zodat functie wordt aangeroepen zodra scrollen klaar is
             setTimeout(() => this.checkViewport(), 500);
         });
+        //timeout zodat na laad animatie van timeline meteen een liedje wordt gespeeld
+        setTimeout(() => {
+            const evt = new WheelEvent('wheel', { deltaY: 0 });
+            mainElement.dispatchEvent(evt);
+        }, 3500);
     }
 
     prevDecennium: number = 0;
