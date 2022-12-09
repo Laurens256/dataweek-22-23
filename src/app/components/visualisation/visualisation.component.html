@@ -48,7 +48,7 @@
             <svg [outerHTML]="loadBackground(range, isLast) | safe: 'html'"></svg>
 
             <section class="randominfo" *ngIf="randomSongsInRange[i]">
-                <h1>{{randomSongsInRange[i].name}}</h1>
+                <h2>{{randomSongsInRange[i].name}}</h2>
                 <p>{{randomSongsInRange[i].artist}} - {{randomSongsInRange[i].album}}</p>
                 <p>{{randomSongsInRange[i].date | date}}</p>
             </section>
@@ -60,15 +60,18 @@
     <source *ngIf="randomSongPreview !== ''" src="{{randomSongPreview}}" type="audio/mp3">
 </audio>
 
-<div *ngIf="loading" class="loading">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
+<div [class.loading]="loading" class="loader">
+    <div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <h1>Jouw playlist door de jaren...</h1>
 </div>

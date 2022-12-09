@@ -28,7 +28,7 @@ app-visualisation .timeline {
     padding: 1em 0;
     transform: none;
     transition: all 3s ease-in-out;
-    transition-delay: .5s;
+    transition-delay: 3.5s;
 }
 
 /* prefer reduced motion media query */
@@ -277,7 +277,7 @@ app-visualisation .allbgs .randominfo {
     overflow: hidden;
 }
 
-app-visualisation .allbgs .randominfo h1 {
+app-visualisation .allbgs .randominfo h2 {
     font-weight: 700;
     font-size: 40px;
     overflow: hidden;
@@ -298,7 +298,24 @@ app-visualisation .allbgs .randominfo p {
 
 
 /* loading animatie bron: https://github.com/hosseinnabi-ir/CSS-Music-Waves-Loading-Animation */
-.loading {
+div.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--year2020);
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    transition-delay: 3s;
+    pointer-events: none;
+}
+
+div.loader:not(.loading) {
+    opacity: 0;
+}
+
+div.loader > div {
     width: 15em;
     position: fixed;
     top: 50%;
@@ -307,13 +324,42 @@ app-visualisation .allbgs .randominfo p {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
 }
 
-.loading div {
+div.loader > div.loader-long {
+    opacity: 1;
+}
+
+div.loader:not(.loading) > div.loader-long {
+    opacity: 0;
+}
+
+div.loader > div > div {
     width: 12px;
     border-radius: 10px;
     background: var(--primary-text-color);
     animation: loader 1.5s ease-in-out infinite;
+}
+
+div.loader h1 {
+    font-size: 3em;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    transition-delay: .5s;
+    text-align: center;
+    width: 90%;
+    margin: 0 auto;
+}
+
+div.loader:not(.loading) h1 {
+    opacity: 1;
 }
 
 @keyframes loader {

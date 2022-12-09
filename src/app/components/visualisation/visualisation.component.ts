@@ -102,9 +102,6 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
                     this.randomSongsInRange[i] = randomSong;
                     if (i == albums.length - 1) {
                         this.albumSet = true;
-                        // const evt = new WheelEvent('wheel', { deltaY: 0 });
-                        // mainElement.dispatchEvent(evt);
-
                         timelineParts = document.querySelectorAll('.timelinepart');
                     }
                 }
@@ -119,6 +116,17 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
     }
 
     async getPlaylistTracks(id: string) {
+        const playlistLength = parseInt(id.split(';')[1]);
+        const loader: HTMLElement = document.querySelector("div.loader > div")!;
+        // Laat alleen laad animatie zien als playlist langer is dan 100 tracks of laden langer duurt dan 500ms
+        if(playlistLength > 100) {
+            loader.classList.add('loader-long');
+        } else {
+            setTimeout(() => {
+                loader.classList.add('loader-long');
+            }, 500);
+        }
+
         //hasplaylist boolean geeft aan of extra info playlist nog moet worden aangevraagd (name, img etc.)
         const data = await this.userDataSvc.getPlaylistTracks(id, this.hasPlaylist);
         //als hasplaylist false wordt meegegeven, wordt in data .playlist extra meegegeven
@@ -128,7 +136,6 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
 
         // console.log(this.playlistTracks)
 
-        // this.getPlaylistColor(this.playlist.images[0].url);
         this.generateTracksInRange();
         this.calcTimelineSize();
         this.generateIndividualYears();
@@ -230,7 +237,7 @@ export class VisualisationComponent implements OnInit, AfterContentChecked, OnDe
 
             const evt = new WheelEvent('wheel', { deltaY: 0 });
             mainElement.dispatchEvent(evt);
-        }, 3500);
+        }, 6500);
 
         // setTimeout(() => {
         //     const evt = new WheelEvent('wheel', { deltaY: 0 });
